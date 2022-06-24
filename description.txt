@@ -1,0 +1,36 @@
+﻿[i/s1:75] [c/51DA5F:What is DnD Terraria?]
+Dungeons and Dragons Terraria is a faithful recreation of DnD into the world of Terraria.
+While the mod may not be the most powerful or in depth mod out there it adds a sense of familiarity from an all time favourite game of mine.
+To get started all you need is level 1, a book, and a mana crystal!
+
+[i/s1:75] [c/51DA5F:What does this mod add to the game?]
+[c/51DA5F:●] Many New Spells
+[c/51DA5F:●] Leveling System
+[c/51DA5F:●] Spellslot System
+[c/51DA5F:●] Class System
+
+[i/s1:75] [c/51DA5F:Damage System]
+[c/51DA5F:●] This mod uses a unique damage system that's accurate to the rolled dice from DnD.
+[c/51DA5F:●] For balancing reasons we chose to also multiply spells by a proficiency bonus that increases as you level up to make the spells better as the game progresses
+[c/51DA5F:●] Due to their unique nature and possibility of doing low damage all weapons are capable of ignoring defense
+
+[i/s1:75] [c/51DA5F:Planned Updates]
+[c/51DA5F:●] Bosses and Monsters from DnD
+[c/51DA5F:●] More Spells
+[c/51DA5F:●] More Weapons using DnD's damage system
+[c/51DA5F:●] Familiar DnD Items
+
+[i/s1:75] [c/51DA5F:Getting Started!]
+[c/51DA5F:●] All you need to get started is a mana crystal to make the PHB and craft your spells
+
+[i/s1:75] [c/51DA5F:Credits]
+[c/51DA5F:●] Massive thanks to Jeo for the item artwork! Amazing work was done and I couldn't be more thankful
+[c/51DA5F:●] A huge thanks to JopoJelly and the rest of the TML team for code assistance and direction when I was quite frankly lost
+[c/51DA5F:●] Thanks to DivermanSam the creator of Thorium for his advice on certain aspects of my code
+[c/51DA5F:●] And a huge thanks to the players, you make this mod possible
+
+This mod is a learning experience for me as I push myself to make better code and art.
+Feel free to follow me on my social media
+Twitter: thrun_will
+YouTube: Salaro
+Twitch: Salaro_

@@ -1,0 +1,8 @@
+displayName = Dungeons And Dragons [Early Access]
+author = Salaro
+homepage = https://discord.gg/qzhuzrFZ6D
+hideCode = true
+hideResources = true
+includeSource = false
+buildIgnore = *.csproj, *.user, obj\*, bin\*, .vs\*, Old\*
+version = 0.3
