@@ -45,11 +45,6 @@ namespace DnD.Items.Spells.ClericSpells.Feats
             Item.height = 32;
         }
 
-        public override bool AllowPrefix(int pre)
-        {
-            return false;
-        }
-
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
             DnDPlayer pc = Main.LocalPlayer.GetModPlayer<DnDPlayer>();

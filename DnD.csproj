@@ -11,6 +11,7 @@
     <PackageReference Include="tModLoader.CodeAssist" Version="0.1.*" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Graphics\Trails\" />
     <Folder Include="Items\Spells\ClericSpells\Lvl9\" />
     <Folder Include="Items\Spells\ClericSpells\Lvl6\" />
     <Folder Include="Items\Spells\ClericSpells\Lvl7\" />

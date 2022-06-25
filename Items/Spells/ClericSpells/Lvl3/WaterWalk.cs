@@ -38,11 +38,6 @@ namespace DnD.Items.Spells.ClericSpells.Lvl3
             Item.shoot = ModContent.ProjectileType<WaterStep>();
         }
 
-        public override bool AllowPrefix(int pre)
-        {
-            return false;
-        }
-
         public override bool CanUseItem(Player player)
         {
             DnDPlayer pc = player.GetModPlayer<DnDPlayer>();

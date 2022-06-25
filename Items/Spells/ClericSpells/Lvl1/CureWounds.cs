@@ -43,12 +43,6 @@ namespace DnD.Items.Spells.ClericSpells.Lvl1
             Item.damage = 1;
             Item.noMelee = true;
         }
-
-        public override bool AllowPrefix(int pre)
-        {
-            return false;
-        }
-
         public override void HoldItem(Player player)
         {
             DnDPlayer pc = player.GetModPlayer<DnDPlayer>();

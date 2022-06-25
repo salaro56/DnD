@@ -12,8 +12,12 @@ using DnD.Furniture;
 using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
 using Terraria.Graphics.Shaders;
-using Terraria.Graphics;
 using Terraria.GameContent.Creative;
+using System.Runtime.InteropServices;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria.GameContent;
+using DnD.Graphics;
+using Terraria.Graphics;
 
 namespace DnD.Items.Spells.Wizard_Spells.Lvl1
 {
@@ -228,9 +232,10 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl1
 
     internal class MagicMissiles : ModProjectile
     {
-        public override string Texture => "Terraria/Images/Projectile_" + ProjectileID.ShadowBeamFriendly;
         public override void SetStaticDefaults()
         {
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 40;
+            ProjectileID.Sets.TrailingMode[Projectile.type] = 3;
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
         }
 
@@ -250,22 +255,33 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl1
             Projectile.tileCollide = false;
         }
 
+        public override bool PreDraw(ref Color lightColor)
+        {
+            Texture2D texture = TextureAssets.Projectile[Projectile.type].Value;
+            Main.spriteBatch.Draw(texture, Projectile.Center - Main.screenPosition, null, default, Projectile.rotation, new Vector2(texture.Width / 2, texture.Height / 2), 1.25f, Projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0f);
+            default(MagicMissileDrawer).Draw(Projectile);
+            return true;
+        }
+
+        public override void PostDraw(Color lightColor)
+        {
+            default(MagicMissileDrawer).Draw(Projectile);
+        }
+
         public override void AI()
         {
             Projectile.localAI[0] += 1f;
-            if (Projectile.localAI[0] > 9f)
+            if (Projectile.localAI[0] < 3f)
             {
                 for (int i = 0; i < 4; i++)
                 {
-                    Vector2 ProjectilePosition = Projectile.Center;
-                    ProjectilePosition -= Projectile.velocity * ((float)i * 0.25f);
-                    Projectile.alpha = 255;
-                    // Important, changed 173 to 178!
-                    int dust = Dust.NewDust(ProjectilePosition, 1, 1, DustID.YellowStarDust, 0f, 0f, 0, default(Color), 1f);
-                    Main.dust[dust].noGravity = true;
-                    Main.dust[dust].position = ProjectilePosition;
-                    Main.dust[dust].scale = (float)Main.rand.Next(70, 110) * 0.013f;
-                    Main.dust[dust].velocity *= 0.2f;
+                    for (int x = 0; x < 20; x++)
+                    {
+                        Vector2 speed = Main.rand.NextVector2CircularEdge(1f, 1f);
+                        Dust d = Dust.NewDustPerfect(Projectile.Center, DustID.YellowStarDust, speed * 4, Scale: 2f);
+                        d.velocity *= 0.5f;
+                        d.noGravity = true;
+                    }
                 }
             }
 
@@ -343,6 +359,7 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl1
                 Projectile.velocity.X = (Projectile.velocity.X * (float)(num149 - 1) + num146) / (float)num149;
                 Projectile.velocity.Y = (Projectile.velocity.Y * (float)(num149 - 1) + num147) / (float)num149;
             }
+            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
             Projectile.netUpdate = true;
         }
 
@@ -351,7 +368,7 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl1
             for (int i = 0; i < 20; i++)
             {
                 Vector2 speed = Main.rand.NextVector2CircularEdge(1f, 1f);
-                Dust d = Dust.NewDustPerfect(Projectile.Center, DustID.YellowStarDust, speed * 4, Scale: 2f);
+                Dust d = Dust.NewDustPerfect(Projectile.Center, DustID.BlueCrystalShard, speed * 4, Scale: 2f);
                 d.velocity *= 0.5f;
                 d.noGravity = true;
             }

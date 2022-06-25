@@ -19,8 +19,8 @@ namespace DnD.Items.Weapons.Rogue
         {
             //Item stats
             Item.useAnimation = 16;
-            Item.useTime = 4;
-            Item.reuseDelay = 18;
+            Item.useTime = 8;
+            Item.reuseDelay = 16;
 
             Item.damage = 38;
             Item.DamageType = DamageClass.Melee;

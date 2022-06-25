@@ -45,11 +45,6 @@ namespace DnD.Items.Spells.ClericSpells.Lvl2
             Item.shoot = ModContent.ProjectileType<BondProj>();
         }
 
-        public override bool AllowPrefix(int pre)
-        {
-            return false;
-        }
-
         public override bool CanUseItem(Player player)
         {
             Vector2 position1 = player.Center;

@@ -29,7 +29,7 @@ namespace DnD
 
             for (int i = 0; i < diceRolled; i++)
             {
-                damage += Main.rand.Next(minRoll, maxRoll) * pc.ProfBonus();
+                damage += Main.rand.Next(minRoll, maxRoll) + pc.ProfBonus();
             }
 
             return damage;

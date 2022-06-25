@@ -49,12 +49,6 @@ namespace DnD.Items.Classes
             Item.accessory = true;
             Item.maxStack = 1;
         }
-
-        public override bool AllowPrefix(int pre)
-        {
-            return false;
-        }
-
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             DnDPlayer pc = player.GetModPlayer<DnDPlayer>();

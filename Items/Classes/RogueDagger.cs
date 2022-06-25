@@ -38,11 +38,6 @@ namespace DnD.Items.Classes
             Item.maxStack = 1;
         }
 
-		public override bool AllowPrefix(int pre)
-		{
-			return false;
-		}
-
 		public override bool CanEquipAccessory(Player player, int slot, bool modded)
 		{
 			var accSlot = ModContent.GetInstance<ClassSlot>();
@@ -327,7 +322,7 @@ namespace DnD.Items.Classes
 					{
 						SoundEngine.PlaySound(SoundID.Item16, Player.position);
 					}
-					CombatText.NewText(Player.getRect(), new Color(100, 100, 100), "Failed Save");
+					CombatText.NewText(Player.getRect(), new Color(100, 100, 100), "Failed Stealth");
 				}
 			}
 			else

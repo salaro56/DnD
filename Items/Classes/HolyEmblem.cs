@@ -45,12 +45,6 @@ namespace DnD.Items.Classes
                 tooltips.Add(line2);
             }
         }
-
-        public override bool AllowPrefix(int pre)
-        {
-            return false;
-        }
-
         public override bool CanEquipAccessory(Player player, int slot, bool modded)
         {
             var accSlot = ModContent.GetInstance<ClassSlot>();

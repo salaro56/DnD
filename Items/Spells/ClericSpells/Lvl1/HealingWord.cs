@@ -46,11 +46,6 @@ namespace DnD.Items.Spells.ClericSpells.Lvl1
             Item.shootSpeed = 15f;
         }
 
-        public override bool AllowPrefix(int pre)
-        {
-            return false;
-        }
-
         public override bool AltFunctionUse(Player player)
         {
             return true;

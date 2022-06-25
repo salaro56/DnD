@@ -13,6 +13,7 @@ using Terraria.Localization;
 using Terraria.DataStructures;
 using Microsoft.Xna.Framework.Graphics.PackedVector;
 using DnD.Rarities;
+using Terraria.Graphics;
 
 namespace DnD.Items.Spells.Wizard_Spells.Lvl3
 {
@@ -177,7 +178,8 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl3
             public override string Texture => "Terraria/Images/Projectile_" + ProjectileID.ShadowBeamFriendly;
             public override void SetStaticDefaults()
             {
-                base.SetStaticDefaults();
+                ProjectileID.Sets.TrailCacheLength[Projectile.type] = 60;
+                ProjectileID.Sets.TrailingMode[Projectile.type] = 3;
             }
 
             public Vector2 target;
@@ -203,10 +205,16 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl3
                 return false;
             }
 
+            public override bool PreDraw(ref Color lightColor)
+            {
+                default(FlameLashDrawer).Draw(Projectile);
+                return true;
+            }
+
             public override void AI()
             {
                 Projectile.localAI[0] += 1f;
-                if (Projectile.localAI[0] > 3f)
+                /*if (Projectile.localAI[0] > 3f)
                 {
                     for (int i = 0; i < 4; i++)
                     {
@@ -220,7 +228,7 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl3
                         Main.dust[dust].scale = (float)Main.rand.Next(70, 110) * 0.013f;
                         Main.dust[dust].velocity *= 0.2f;
                     }
-                }
+                }*/
 
                 Rectangle targetPosition = new Rectangle((int)target.X, (int)target.Y, 8, 8);
                 if (Projectile.Hitbox.Intersects(targetPosition))

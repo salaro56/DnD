@@ -33,11 +33,6 @@ namespace DnD.Items.Classes
             Item.maxStack = 1;
         }
 
-        public override bool AllowPrefix(int pre)
-        {
-            return false;
-        }
-
         public override bool CanEquipAccessory(Player player, int slot, bool modded)
         {
             var accSlot = ModContent.GetInstance<ClassSlot>();
