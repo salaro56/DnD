@@ -52,9 +52,9 @@ namespace DnD.NPCS.Friendly
 			NPC.Happiness
 				.SetBiomeAffection<ForestBiome>(AffectionLevel.Like) // Example Person prefers the forest.
 				.SetBiomeAffection<SnowBiome>(AffectionLevel.Dislike) // Example Person dislikes the snow.
-				.SetBiomeAffection<HallowBiome>(AffectionLevel.Love) // Example Person likes the Example Surface Biome
-				.SetNPCAffection(NPCID.DD2Bartender, AffectionLevel.Love) // Loves living near the dryad.
-				.SetNPCAffection(NPCID.Wizard, AffectionLevel.Like) // Likes living near the guide.
+				.SetBiomeAffection<HallowBiome>(AffectionLevel.Love) // Example Person loves the Hallow Biome
+				.SetNPCAffection(NPCID.DD2Bartender, AffectionLevel.Love) // Loves living near the tavernkeep.
+				.SetNPCAffection(NPCID.Wizard, AffectionLevel.Like) // Likes living near the Wizard.
 				.SetNPCAffection(NPCID.Merchant, AffectionLevel.Dislike) // Dislikes living near the merchant.
 				.SetNPCAffection(NPCID.Demolitionist, AffectionLevel.Hate) // Hates living near the demolitionist.
 			; // < Mind the semicolon!
@@ -232,11 +232,11 @@ namespace DnD.NPCS.Friendly
 			randExtraCooldown = 30;
 		}
 
-		// todo: implement
-		// public override void TownNPCAttackProj(ref int projType, ref int attackDelay) {
-		// 	projType = ProjectileType<SparklingBall>();
-		// 	attackDelay = 1;
-		// }
+		 //todo: implement
+		 public override void TownNPCAttackProj(ref int projType, ref int attackDelay) {
+		 	projType = ProjectileID.BallofFire;
+		 	attackDelay = 1;
+		}
 
 		public override void TownNPCAttackProjSpeed(ref float multiplier, ref float gravityCorrection, ref float randomOffset)
 		{

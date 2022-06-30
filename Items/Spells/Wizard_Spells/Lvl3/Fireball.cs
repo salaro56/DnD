@@ -46,6 +46,7 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl3
             Item.shootSpeed = 5f;
             Item.damage = 1;
             Item.ArmorPenetration += 999;
+            Item.value = Item.sellPrice(0, 2, 0, 0);
 
             //item configs
             Item.width = 32;
@@ -155,7 +156,7 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl3
 
             DnDItem sItem = ModContent.GetInstance<DnDItem>();
 
-            damage += sItem.DamageValue(minRoll: 1, maxRoll: 6, diceRolled: spellLevel + 7);
+            damage += sItem.DamageValue(minRoll: 1, maxRoll: 6, diceRolled: spellLevel + 5);
         }
         public override void ModifyHitNPC(Player player, NPC target, ref int damage, ref float knockBack, ref bool crit)
         {
@@ -230,8 +231,8 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl3
                     }
                 }*/
 
-                Rectangle targetPosition = new Rectangle((int)target.X, (int)target.Y, 8, 8);
-                if (Projectile.Hitbox.Intersects(targetPosition))
+                Rectangle targetPosition = new Rectangle((int)target.X, (int)target.Y, 10, 10);
+                if (Projectile.Hitbox.Intersects(targetPosition) || Vector2.Distance(Projectile.position, target) < 1)
                 {
                     Projectile.Kill();
                     return;
@@ -239,7 +240,7 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl3
                 if (Projectile.owner == Main.myPlayer)
                 {
                     Vector2 targetDirection = new Vector2(target.X, target.Y) - Projectile.Center;
-                    Projectile.velocity = Vector2.Normalize(targetDirection) * 5f;
+                    Projectile.velocity = Vector2.Normalize(targetDirection) * 3f;
                 }
                 Projectile.netUpdate = true;
             }

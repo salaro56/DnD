@@ -287,6 +287,19 @@ namespace DnD
 
         }
 
+        public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        {
+            DnDPlayer pc = Player.GetModPlayer<DnDPlayer>();
+            for (int i = 0; i < ExtraAttack(); i++)
+            {
+                if (pc.barbClass == true && Main.rand.Next(1, 20) + pc.ProfBonus() >= 17 && proj.DamageType != DamageClass.Magic || pc.fighterClass == true && Main.rand.Next(1, 20) + pc.ProfBonus() >= 17 && proj.DamageType != DamageClass.Magic)
+                {
+                    damage *= 2;
+                    CombatText.NewText(Main.LocalPlayer.getRect(), Color.Red, "Extra Attack!");
+                }
+            }
+        }
+
         public override void ModifyHitNPC(Item item, NPC target, ref int damage, ref float knockback, ref bool crit)
         {
             DnDPlayer pc = Player.GetModPlayer<DnDPlayer>();

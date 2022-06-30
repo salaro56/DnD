@@ -14,6 +14,7 @@ using Terraria.DataStructures;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.ObjectModel;
 using Terraria.Localization;
+using DnD.Common.Structs;
 
 namespace DnD.Items.Spells.ClericSpells.Feats
 {
@@ -170,19 +171,14 @@ namespace DnD.Items.Spells.ClericSpells.Feats
             return false;
         }
 
-        string[] undeadNames = {"Angry Bones", "Armored Skeleton", "Armored Viking", "Blood Zombie", "Blue Armored Bones", "Bone Lee", "Cursed SKull", "Dark Caster",
-        "Diabolist", "Doctor Bones", "Eyezor", "Floaty Gross", "Frankenstein", "Frozen Zombie", "Ghost", "Giant Cursed Skull", "Hell Armored Bones", "Hoplite",
-        "Maggot Zombie", "Necromancer", "Pirate's Curse", "Poltergeist", "Ragged Caster", "Raincoat Zombie", "Reaper", "Rune Wizard", "Rusty Armored Bones", "Shadowflame Apparition",
-        "Skeleton", "Skeleton Archer", "Skeleton Commando", "Skeleton Sniper", "Spore Skeleton", "Spore Zombie", "Tactical Skeleton", "The Bride", "The Groom",
-        "Tim", "Tortured Soul", "Undead Miner", "Undead Viking", "Vampire", "Wraith", "Zombie", "Zombie Elf", "Zombie Merman"};
-
+        CreatureArrays ca = new();
 
         public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
             DnDPlayer pc = Main.LocalPlayer.GetModPlayer<DnDPlayer>();
             int spellSave = 10 + pc.ProfBonus();
 
-            if (undeadNames.Any(target.FullName.Contains))
+            if (ca.undeadNames.Any(target.FullName.Contains))
             {
                 if (pc.playerLevel < 5)
                 {

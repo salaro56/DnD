@@ -8,6 +8,9 @@ using Terraria.ModLoader;
 using Terraria.ID;
 using DnD.Packets;
 using Microsoft.Xna.Framework;
+using Terraria.GameContent.ItemDropRules;
+using DnD.Items.Weapons.Swords;
+using DnD.Items.Spells.Wizard_Spells.Lvl8;
 
 namespace DnD
 {
@@ -103,5 +106,15 @@ namespace DnD
             if (npc.boss || npc.townNPC || npc.friendly || Main.netMode == NetmodeID.MultiplayerClient)
                 return;
         }
+
+        public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
+        {
+            if(npc.type == NPCID.HallowBoss)
+            {
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<RainboneBreaker>(), 3));
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SwordSwarm>(), 5));
+            }
+        }
+
     }
 }

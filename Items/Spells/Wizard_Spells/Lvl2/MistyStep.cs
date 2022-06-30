@@ -56,6 +56,7 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl2
             Item.noMelee = true;
             Item.rare = ModContent.RarityType<Rarities.WizardRare>();
             Item.mana = 30;
+            Item.value = Item.sellPrice(0, 0, 25, 0);
         }
 
         public override bool CanUseItem(Player player)

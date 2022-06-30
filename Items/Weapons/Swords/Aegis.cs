@@ -28,6 +28,7 @@ namespace DnD.Items.Weapons.Swords
             //Item stats
             Item.damage = 30;
             Item.DamageType = DamageClass.Melee;
+            Item.knockBack = 2;
 
             Item.useTime = 25;
             Item.useAnimation = 25;
@@ -55,6 +56,16 @@ namespace DnD.Items.Weapons.Swords
             return false;
         }
 
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+                .AddIngredient(ModContent.ItemType<ClassToken>())
+                .AddIngredient(ItemID.Feather, 5)
+                .AddIngredient(ItemID.SilverBar, 12)
+                .AddTile(ModContent.TileType<Furniture.PHBTile>())
+                .Register();
+        }
+
     }
 
     internal class AegisSwing : ModProjectile
@@ -71,6 +82,7 @@ namespace DnD.Items.Weapons.Swords
             Projectile.DamageType = DamageClass.Melee;
             Projectile.friendly = true;
 
+            Projectile.light = 0.8f;
             Projectile.alpha = 255;
         }
 
@@ -80,7 +92,7 @@ namespace DnD.Items.Weapons.Swords
 
             Projectile.localAI[0] += 1;
 
-            Player player = Main.LocalPlayer;
+            Player player = Main.player[Projectile.owner];
 
 
             float x = 0;

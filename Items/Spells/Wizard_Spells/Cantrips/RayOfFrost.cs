@@ -19,6 +19,7 @@ namespace DnD.Items.Spells.Wizard_Spells.Cantrips
     {
         public override void SetStaticDefaults()
         {
+            DisplayName.SetDefault("Ray of Frost");
             Tooltip.SetDefault(value: "[c/FF0000:Cantrip:]" +
                 "\nDoes 1d8 x proficiency bonus cold damage" +
                 "\nA frigid beam of blue-white light streaks toward a creature within range." +
@@ -35,6 +36,7 @@ namespace DnD.Items.Spells.Wizard_Spells.Cantrips
             Item.reuseDelay = 10;
             Item.shootSpeed = 5f;
             Item.damage = 1;
+            Item.value = Item.sellPrice(0, 0, 3, 50);
             Item.ArmorPenetration += 999;
 
             //item configs

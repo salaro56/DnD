@@ -20,16 +20,16 @@ namespace DnD.Graphics
 			miscShaderData.UseSaturation(-2.8f);
 			miscShaderData.UseOpacity(4f);
 			miscShaderData.Apply();
-			RainbowRodDrawer._vertexStrip.PrepareStripWithProceduralPadding(proj.oldPos, proj.oldRot, StripColors, StripWidth, -Main.screenPosition + proj.Size / 2f);
+			RainbowRodDrawer._vertexStrip.PrepareStripWithProceduralPadding(proj.oldPos, proj.oldRot, StripColors, StripWidth, -Main.screenPosition + proj.Size / 2);
 			RainbowRodDrawer._vertexStrip.DrawTrail();
 			Main.pixelShader.CurrentTechnique.Passes[0].Apply();
 		}
 
 		private Color StripColors(float progressOnStrip)
 		{
-			Color value = Main.hslToRgb(.225f, .39f, 0.7f);
+			Color value = Main.hslToRgb((progressOnStrip * 1.6f - Main.GlobalTimeWrappedHourly) % 1f, 1f, 0.5f);
 			//Color result = Color.Lerp(Color.Black, value, Utils.GetLerpValue(-0.2f, 0.5f, progressOnStrip, clamped: true)) * (1f - Utils.GetLerpValue(0f, 0.98f, progressOnStrip));
-			Color result = Color.Orange;
+			Color result = Color.Lerp(Color.White, value, Utils.GetLerpValue(-0.2f, 0.5f, progressOnStrip, clamped: true)) * (1f - Utils.GetLerpValue(0f, 0.98f, progressOnStrip));
 			result.A = 0;
 			return result;
 		}
@@ -37,7 +37,7 @@ namespace DnD.Graphics
 		private float StripWidth(float progressOnStrip)
 		{
 			float num = 2f;
-			float lerpValue = Utils.GetLerpValue(-0f, 0.2f, progressOnStrip, clamped: true);
+			float lerpValue = Utils.GetLerpValue(-0f, 0.5f, progressOnStrip, clamped: true);
 			num *= 1f - (1f - lerpValue) * (1f - lerpValue);
 			return MathHelper.Lerp(0f, 32f, num);
 		}
@@ -62,7 +62,7 @@ namespace DnD.Graphics
 
 			public CustomVertexInfo(Vector2 position, Color color, Vector2 texCoord)
 			{
-				this.Position = position;
+				this.Position = new Vector2(position.X, position.Y);
 				this.Color = color;
 				this.TexCoord = texCoord;
 			}

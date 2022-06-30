@@ -1,4 +1,4 @@
-displayName = Dungeons And Dragons [Early Access]
+displayName = Dungeons of Terraria [Early Access]
 author = Salaro
 homepage = https://discord.gg/qzhuzrFZ6D
 hideCode = true

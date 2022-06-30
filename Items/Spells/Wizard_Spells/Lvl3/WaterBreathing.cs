@@ -33,10 +33,10 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl3
             Item.useTurn = true;
             Item.UseSound = SoundID.Item4;
             Item.rare = ModContent.RarityType<Rarities.WizardRare>();
-            Item.value = 0;
             Item.mana = 2;
             Item.noUseGraphic = true;
             Item.shoot = ModContent.ProjectileType<WaterBreath>();
+            Item.value = Item.sellPrice(0, 2, 0, 0);
         }
 
         public override bool CanUseItem(Player player)

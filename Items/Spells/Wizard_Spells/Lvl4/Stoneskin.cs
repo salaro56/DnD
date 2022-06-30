@@ -39,6 +39,7 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl4
             Item.buffTime = 6800;
             Item.mana = 12;
             Item.noUseGraphic = true;
+            Item.value = Item.sellPrice(0, 10, 0, 0);
         }
 
         public override bool CanUseItem(Player player)

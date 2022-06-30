@@ -36,6 +36,7 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl2
             Item.reuseDelay = 20;
             Item.damage = 1;
             Item.ArmorPenetration += 999;
+            Item.value = Item.sellPrice(0, 0, 25, 0);
 
             //item configs
             Item.width = 32;
@@ -143,7 +144,7 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl2
 
             DnDItem sItem = ModContent.GetInstance<DnDItem>();
 
-            damage += sItem.DamageValue(minRoll: 1, maxRoll: 4, diceRolled: (spellLevel * 2) + 2);
+            damage += sItem.DamageValue(minRoll: 1, maxRoll: 4, diceRolled: (spellLevel) * 2);
         }
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

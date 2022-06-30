@@ -348,7 +348,7 @@ namespace DnD.Items.Classes
 					{
 						SoundEngine.PlaySound(SoundID.Item16, Player.position);
 					}
-					CombatText.NewText(Player.getRect(), new Color(100, 100, 100), "Failed Save");
+					CombatText.NewText(Player.getRect(), new Color(100, 100, 100), "Failed Stealth");
 				}
 			}
 		}

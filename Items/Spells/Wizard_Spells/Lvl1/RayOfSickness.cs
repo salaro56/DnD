@@ -45,6 +45,7 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl1
             Item.shootSpeed = 5f;
             Item.damage = 1;
             Item.ArmorPenetration += 999;
+            Item.value = Item.sellPrice(0, 0, 10, 0);
 
             //item configs
             Item.width = 32;
