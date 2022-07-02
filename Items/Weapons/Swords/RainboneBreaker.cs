@@ -118,23 +118,7 @@ namespace DnD.Items.Weapons.Swords
             }
 
         }
-        private void UpdatePlayerVisuals(Player player, Vector2 playerHandPos)
-        {
-            // Place the Prism directly into the player's hand at all times.
-            Projectile.Center = playerHandPos;
-            // The beams emit from the tip of the Prism, not the side. As such, rotate the sprite by pi/2 (90 degrees).
-            Projectile.spriteDirection = Projectile.direction;
 
-            // The Prism is a holdout Projectile, so change the player's variables to reflect that.
-            // Constantly resetting player.itemTime and player.itemAnimation prevents the player from switching items or doing anything else.
-            player.ChangeDir(Projectile.direction);
-            player.heldProj = Projectile.whoAmI;
-            player.itemTime = 2;
-            player.itemAnimation = 2;
-
-            // If you do not multiply by Projectile.direction, the player's hand will point the wrong direction while facing left.
-            player.itemRotation = (Projectile.velocity * Projectile.direction).ToRotation();
-        }
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
@@ -148,8 +132,20 @@ namespace DnD.Items.Weapons.Swords
             {
                 rad = deg * (Math.PI / -90);
             }
-            Projectile.position.X = player.Center.X + (int)(Math.Cos(rad) * dist) - Projectile.width / 2;
-            Projectile.position.Y = player.Center.Y + (int)(Math.Sin(rad) * dist) - Projectile.height / 2;
+            else
+            {
+                rad = deg * (Math.PI / 90);
+            }
+            if (player.direction == 1)
+            {
+                Projectile.position.X = (player.Center.X - (int)(Math.Cos(rad) * dist) - Projectile.width / 2);
+                Projectile.position.Y = (player.Center.Y - (int)(Math.Sin(rad) * dist) - Projectile.height / 2);
+            }
+            else
+            {
+                Projectile.position.X = (player.Center.X + (int)(Math.Cos(rad) * dist) - Projectile.width / 2);
+                Projectile.position.Y = (player.Center.Y + (int)(Math.Sin(rad) * dist) - Projectile.height / 2);
+            }
             Projectile.ai[1] += 1f;
             if (Projectile.owner == Main.myPlayer)
             {
@@ -164,10 +160,11 @@ namespace DnD.Items.Weapons.Swords
                 else if (!stillInUse)
                 {
                     ;
-                    SoundEngine.PlaySound(SoundID.NPCHit2);
+                    SoundEngine.PlaySound(SoundID.Item1);
                     Projectile.Kill();
                 }
             }
+            Projectile.spriteDirection = Projectile.direction;
             Projectile.netUpdate = true;
         }
 
@@ -245,23 +242,7 @@ namespace DnD.Items.Weapons.Swords
             }
 
         }
-        private void UpdatePlayerVisuals(Player player, Vector2 playerHandPos)
-        {
-            // Place the Prism directly into the player's hand at all times.
-            Projectile.Center = playerHandPos;
-            // The beams emit from the tip of the Prism, not the side. As such, rotate the sprite by pi/2 (90 degrees).
-            Projectile.spriteDirection = Projectile.direction;
 
-            // The Prism is a holdout Projectile, so change the player's variables to reflect that.
-            // Constantly resetting player.itemTime and player.itemAnimation prevents the player from switching items or doing anything else.
-            player.ChangeDir(Projectile.direction);
-            player.heldProj = Projectile.whoAmI;
-            player.itemTime = 2;
-            player.itemAnimation = 2;
-
-            // If you do not multiply by Projectile.direction, the player's hand will point the wrong direction while facing left.
-            player.itemRotation = (Projectile.velocity * Projectile.direction).ToRotation();
-        }
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
@@ -275,8 +256,20 @@ namespace DnD.Items.Weapons.Swords
             {
                 rad = deg * (Math.PI / -90);
             }
-            Projectile.position.X = player.Center.X + (int)(Math.Cos(rad) * dist) - Projectile.width / 2;
-            Projectile.position.Y = player.Center.Y + (int)(Math.Sin(rad) * dist) - Projectile.height / 2;
+            else
+            {
+                rad = deg * (Math.PI / 90);
+            }
+            if (player.direction == 1)
+            {
+                Projectile.position.X = (player.Center.X - (int)(Math.Cos(rad) * dist) - Projectile.width / 2);
+                Projectile.position.Y = (player.Center.Y - (int)(Math.Sin(rad) * dist) - Projectile.height / 2);
+            }
+            else
+            {
+                Projectile.position.X = (player.Center.X + (int)(Math.Cos(rad) * dist) - Projectile.width / 2);
+                Projectile.position.Y = (player.Center.Y + (int)(Math.Sin(rad) * dist) - Projectile.height / 2);
+            }
             Projectile.ai[1] += 1f;
 
             if (Projectile.owner == Main.myPlayer)
@@ -292,10 +285,10 @@ namespace DnD.Items.Weapons.Swords
                 else if (!stillInUse)
                 {
                     ;
-                    SoundEngine.PlaySound(SoundID.NPCHit2);
                     Projectile.Kill();
                 }
             }
+            Projectile.spriteDirection = Projectile.direction;
             Projectile.netUpdate = true;
         }
 

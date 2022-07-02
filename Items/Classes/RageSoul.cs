@@ -1,4 +1,5 @@
 ﻿using DnD.Common.Players;
+using DnD.Items.Spells.ClericSpells.Lvl4;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -89,41 +90,43 @@ namespace DnD.Items.Classes
         {
             DnDPlayer pc = Main.LocalPlayer.GetModPlayer<DnDPlayer>();
 
-            TooltipLine line = new TooltipLine(Mod, "Features", "Features:");
+            TooltipLine line = new TooltipLine(Mod, "Features", "[c/51DA5F: Features:]");
             tooltips.Add(line);
-            TooltipLine line1x = new TooltipLine(Mod, "Feat", "Rage");
+            TooltipLine line1x = new TooltipLine(Mod, "Feat", "[c/51DA5F: Rage]");
             TooltipLine line1a = new TooltipLine(Mod, "Feat", "Press the rage button to enter a rage. Can't be wearing armour while raging");
             tooltips.Add(line1a);
             tooltips.Add(line1x);
-            TooltipLine line2 = new TooltipLine(Mod, "Feat", "Unarmoured defense");
+            TooltipLine line2 = new TooltipLine(Mod, "Feat", "[c/51DA5F: Unarmoured defense]");
             TooltipLine line2a = new TooltipLine(Mod, "Feat", "Increases defense based on proficiency bonus and level as long as you aren't wearing armour");
             tooltips.Add(line2a);
             tooltips.Add(line2);
             if(pc.playerLevel >= 5)
             {
-                TooltipLine line3 = new TooltipLine(Mod, "Feat", "Extra Attack");
-                TooltipLine line3a = new TooltipLine(Mod, "Feat", "Occassionally strike twice dealing more damage");
-                TooltipLine line4 = new TooltipLine(Mod, "Feat", "Fast Movement");
+                TooltipLine line3 = new TooltipLine(Mod, "Feat", "[c/51DA5F: Extra Attack]");
+                TooltipLine line3a = new TooltipLine(Mod, "Feat", "Occassionally strike again dealing more damage, gain more attacks at higher levels");
+                TooltipLine line4 = new TooltipLine(Mod, "Feat", "[c/51DA5F: Fast Movement]");
                 TooltipLine line4a = new TooltipLine(Mod, "Feat", "Increases movement speed");
                 tooltips.Add(line3); tooltips.Add(line4);
                 tooltips.Add(line3a); tooltips.Add(line4a);
             }
             if(pc.playerLevel >= 9)
             {
-                TooltipLine line5 = new TooltipLine(Mod, "Feat", "Brutal Critical");
-                tooltips.Add(line5);
+                TooltipLine line5 = new TooltipLine(Mod, "Feat", "[c/51DA5F: Brutal Critical]");
+                TooltipLine line5a = new TooltipLine(Mod, "Feat", "Increases crit chance and damage");
+                tooltips.Add(line5); tooltips.Add(line5a);
             }
             if(pc.playerLevel >= 11)
             {
-                TooltipLine line6 = new TooltipLine(Mod, "Feat", "Relentless Rage");
+                TooltipLine line6 = new TooltipLine(Mod, "Feat", "[c/51DA5F: Relentless Rage]");
                 TooltipLine line6a = new TooltipLine(Mod, "Feat", "Can roll to avoid taking fatal damage, difficulty increases whenever you succeed");
                 tooltips.Add(line6);
                 tooltips.Add(line6a);
             }
             if(pc.playerLevel >= 20)
             {
-                TooltipLine line7 = new TooltipLine(Mod, "Feat", "Primal Champion");
-                tooltips.Add(line7);
+                TooltipLine line7 = new TooltipLine(Mod, "Feat", "[c/51DA5F: Primal Champion]");
+                TooltipLine line7a = new TooltipLine(Mod, "Feat", "Increases max health by 100");
+                tooltips.Add(line7); tooltips.Add(line7a);
             }
         }
 
@@ -227,7 +230,7 @@ namespace DnD.Items.Classes
             DnDPlayer pc = Player.GetModPlayer<DnDPlayer>();
             int dc = dcCheck;
 
-            if (pc.barbClass == true && pc.playerLevel >= 11 && Main.rand.Next(1,20) + pc.ProfBonus() >= dc)
+            if (pc.barbClass == true && pc.playerLevel >= 11 && Main.rand.Next(1,20) + pc.ProfBonus() >= dc && !Main.LocalPlayer.HasBuff(ModContent.BuffType<WardedDeath>()))
             {
                 Player.statLife += 60;
                 dcCheck += 5;
@@ -249,7 +252,7 @@ namespace DnD.Items.Classes
             }
             else
             {
-                return base.PreKill(damage, hitDirection, pvp, ref playSound, ref genGore, ref damageSource);
+                return true;
             }
         }
     }

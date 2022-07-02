@@ -22,7 +22,6 @@ namespace DnD.Items.Classes
 			DisplayName.SetDefault("Rogue's Dagger");
             Tooltip.SetDefault("10% Increased Melee damage" +
                 "\n10% Increased Ranged damage" +
-                "\nPress sneak button to activate stealth" +
                 "\nRequired for Rogues");
         }
 
@@ -96,29 +95,34 @@ namespace DnD.Items.Classes
         {
             DnDPlayer pc = Main.LocalPlayer.GetModPlayer<DnDPlayer>();
 
-            TooltipLine line = new TooltipLine(Mod, "Features", "Features:");
+            TooltipLine line = new TooltipLine(Mod, "Features", "[c/51DA5F: Features:]");
             tooltips.Add(line);
-            TooltipLine line2 = new TooltipLine(Mod, "Feat", "Sneak Attack");
-            tooltips.Add(line2);
+            TooltipLine line2 = new TooltipLine(Mod, "Feat", "[c/51DA5F: Sneak Attack]");
+			TooltipLine line2a = new TooltipLine(Mod, "Feat", "Lets you enter stealth by hitting the hotkey and deal extra damage");
+            tooltips.Add(line2); tooltips.Add(line2a);
             if (pc.playerLevel >= 2)
             {
-                TooltipLine line3 = new TooltipLine(Mod, "Feat", "Cunning Action");
-                tooltips.Add(line3);
+                TooltipLine line3 = new TooltipLine(Mod, "Feat", "[c/51DA5F: Cunning Action]");
+				TooltipLine line3a = new TooltipLine(Mod, "Feat", "Lets you dash by double tapping in a direction");
+                tooltips.Add(line3); tooltips.Add(line3a);
             }
             if (pc.playerLevel >= 5)
             {
-                TooltipLine line4 = new TooltipLine(Mod, "Feat", "Uncanny Dodge");
-                tooltips.Add(line4);
+                TooltipLine line4 = new TooltipLine(Mod, "Feat", "[c/51DA5F: Uncanny Dodge]");
+				TooltipLine line4a = new TooltipLine(Mod, "Feat", "Occassionally dodge and attack to take half damage");
+                tooltips.Add(line4); tooltips.Add(line4a);
             }
             if (pc.playerLevel >= 11)
             {
-                TooltipLine line5 = new TooltipLine(Mod, "Feat", "Reliable Talent");
-                tooltips.Add(line5);
+                TooltipLine line5 = new TooltipLine(Mod, "Feat", "[c/51DA5F: Reliable Talent]");
+				TooltipLine line5a = new TooltipLine(Mod, "Feat", "Increases success rate of sneak");
+                tooltips.Add(line5); tooltips.Add(line5a);
             }
             if (pc.playerLevel >= 14)
             {
-                TooltipLine line7 = new TooltipLine(Mod, "Feat", "Blindsense");
-                tooltips.Add(line7);
+                TooltipLine line7 = new TooltipLine(Mod, "Feat", "[c/51DA5F: Blindsense]");
+				TooltipLine line7a = new TooltipLine(Mod, "Feat", "Shows you the location of enemies near you");
+                tooltips.Add(line7); tooltips.Add(line7a);
             }
         }
 

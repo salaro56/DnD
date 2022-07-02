@@ -48,6 +48,11 @@ namespace DnD.Items.Spells.ClericSpells.Feats
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
+            int index = tooltips.FindIndex(x => x.Name == "Damage");
+            if (index == -1)
+                return;
+            tooltips.RemoveAt(index);
+
             DnDPlayer pc = Main.LocalPlayer.GetModPlayer<DnDPlayer>();
 
             if(pc.playerLevel >= 5)

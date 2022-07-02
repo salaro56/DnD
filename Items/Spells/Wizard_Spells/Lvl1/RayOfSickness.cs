@@ -58,6 +58,14 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl1
             Item.UseSound = SoundID.Item16;
         }
 
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            int index = tooltips.FindIndex(x => x.Name == "Damage");
+            if (index == -1)
+                return;
+            tooltips[index].Text = "2d8 + 1d8 per level above 1st";
+        }
+
         public override bool CanUseItem(Player player)
         {
             DnDPlayer pc = player.GetModPlayer<DnDPlayer>();

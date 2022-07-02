@@ -69,6 +69,14 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl1
             Item.UseSound = new SoundStyle($"{nameof(DnD)}/Sounds/Item/MagicChant" + Main.rand.Next(1, 5));
         }
 
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            int index = tooltips.FindIndex(x => x.Name == "Damage");
+            if (index == -1)
+                return;
+            tooltips[index].Text = "1d4 + 1 per bolt";
+        }
+
         public override bool CanUseItem(Player player)
         {
             DnDPlayer pc = player.GetModPlayer<DnDPlayer>();

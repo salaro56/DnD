@@ -129,126 +129,60 @@ namespace DnD
         }
         public int SpellSlot()
         {
-            switch (playerLevel)
+            return playerLevel switch
             {
-                case 1:
-                case 2:
-                    return 1;
-                    
-                case 3:
-                case 4:
-                    return 2;
-                case 5:
-                case 6:
-                    return 3;
-                case 7:
-                case 8:
-                    return 4;
-                case 9:
-                case 10:
-                    return 5;
-                case 11:
-                case 12:
-                    return 6;
-                case 13:
-                case 14:
-                    return 7;
-                case 15:
-                case 16:
-                    return 8;
-                case 17:
-                case 18:
-                case 19:
-                case 20:
-                    return 9;
-
-                default:
-                    return 0;
-            }
+                1 or 2 => 1,
+                3 or 4 => 2,
+                5 or 6 => 3,
+                7 or 8 => 4,
+                9 or 10 => 5,
+                11 or 12 => 6,
+                13 or 14 => 7,
+                15 or 16 => 8,
+                17 or 18 or 19 or 20 => 9,
+                _ => 0,
+            };
         }
 
         public int ProfBonus()
         {
-            switch(playerLevel)
+            return playerLevel switch
             {
-                case 1:
-                case 2:
-                case 3:
-                case 4:
-                    return 2;
-                case 5:
-                case 6:
-                case 7:
-                case 8:
-                    return 3;
-                case 9:
-                case 10:
-                case 11:
-                case 12:
-                    return 4;
-                case 13:
-                case 14:
-                case 15:
-                case 16:
-                    return 5;
-                case 17:
-                case 18:
-                case 19:
-                case 20:
-                    return 6;
-                default:
-                    return 2;
-            }
+                1 or 2 or 3 or 4 => 2,
+                5 or 6 or 7 or 8 => 3,
+                9 or 10 or 11 or 12 => 4,
+                13 or 14 or 15 or 16 => 5,
+                17 or 18 or 19 or 20 => 6,
+                _ => 2,
+            };
         }
 
         public int XPToLevel()
         {
-            switch(playerLevel)
+            return playerLevel switch
             {
-                case 1:
-                    return 300;
-                case 2:
-                    return 900;
-                case 3:
-                    return 2700;
-                case 4:
-                    return 6500;
-                case 5:
-                    return 14000;
-                case 6:
-                    return 23000;
-                case 7:
-                    return 34000;
-                case 8:
-                    return 48000;
-                case 9:
-                    return 64000;
-                case 10:
-                    return 85000;
-                case 11:
-                    return 100000;
-                case 12:
-                    return 120000;
-                case 13:
-                    return 140000;
-                case 14:
-                    return 165000;
-                case 15:
-                    return 195000;
-                case 16:
-                    return 225000;
-                case 17:
-                    return 265000;
-                case 18:
-                    return 305000;
-                case 19:
-                    return 355000;
-                case 20:
-                    return 0;
-
-                default:
-                    return 0;
-            }
+                1 => 300,
+                2 => 900,
+                3 => 2700,
+                4 => 6500,
+                5 => 14000,
+                6 => 23000,
+                7 => 34000,
+                8 => 48000,
+                9 => 64000,
+                10 => 85000,
+                11 => 100000,
+                12 => 120000,
+                13 => 140000,
+                14 => 165000,
+                15 => 195000,
+                16 => 225000,
+                17 => 265000,
+                18 => 305000,
+                19 => 355000,
+                20 => 0,
+                _ => 0,
+            };
         }
 
         public override void ResetEffects()

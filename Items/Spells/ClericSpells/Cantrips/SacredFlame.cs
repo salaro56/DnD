@@ -22,8 +22,7 @@ namespace DnD.Items.Spells.ClericSpells.Cantrips
         {
             Tooltip.SetDefault(value: "[c/FF0000:Cantrip:]" +
                 "\nDoes 1d8 x proficiency bonus radiant damage" +
-                "\nFlame like radiance descends on a creature that you can see" +
-                "\nDoes an additional 1d8 at level 5, 11, and 17");
+                "\nFlame like radiance descends on a creature that you can see");
 
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
@@ -50,6 +49,50 @@ namespace DnD.Items.Spells.ClericSpells.Cantrips
             Item.noMelee = true;
             Item.rare = ModContent.RarityType<ClericRare>();
             Item.UseSound = SoundID.Item27;
+        }
+
+        int level = 0;
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            DnDPlayer pc = Main.LocalPlayer.GetModPlayer<DnDPlayer>();
+            string[] damageVal = { "1d8", "2d8", "3d8", "4d8" };
+            switch (pc.playerLevel)
+            {
+                case 1:
+                case 2:
+                case 3:
+                case 4:
+                    level = 0;
+                    break;
+                case 5:
+                case 6:
+                case 7:
+                case 8:
+                case 9:
+                case 10:
+                    level = 1;
+                    break;
+                case 11:
+                case 12:
+                case 13:
+                case 14:
+                case 15:
+                case 16:
+                    level = 2;
+                        break;
+                case 17:
+                case 18:
+                case 19:
+                case 20:
+                    level = 3;
+                    break;
+            }
+
+
+            int index = tooltips.FindIndex(x => x.Name == "Damage");
+            if (index == -1)
+                return;
+            tooltips[index].Text = damageVal[level];
         }
 
         public override bool CanUseItem(Player player)

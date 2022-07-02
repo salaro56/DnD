@@ -43,6 +43,15 @@ namespace DnD.Items.Spells.ClericSpells.Lvl1
             Item.damage = 1;
             Item.noMelee = true;
         }
+
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            int index = tooltips.FindIndex(x => x.Name == "Damage");
+            if (index == -1)
+                return;
+            tooltips[index].Text = "1d8 + proficiency bonus per spell level";
+        }
+
         public override void HoldItem(Player player)
         {
             DnDPlayer pc = player.GetModPlayer<DnDPlayer>();
@@ -298,8 +307,8 @@ namespace DnD.Items.Spells.ClericSpells.Lvl1
             Projectile.penetrate = 1;
 
             //proj configs
-            Projectile.width = 20;
-            Projectile.height = 20;
+            Projectile.width = 4;
+            Projectile.height = 4;
             Projectile.friendly = true;
             Projectile.DamageType = DamageClass.Magic;
             Projectile.timeLeft = 15;

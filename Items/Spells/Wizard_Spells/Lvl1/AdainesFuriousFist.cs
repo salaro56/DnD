@@ -20,7 +20,6 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl1
         {
             DisplayName.SetDefault("Adaine's Furious Fist");
             Tooltip.SetDefault(value: "[c/FF0000:Level 1:]" +
-                "\nDeals 2d10 force damage multiplied by proficiency bonus to a target goes up by 2d10 per level" +
                 "\nYour fist gleams with a silvery arcane light" +
                 "\nOn a failed save the target is also knocked back 5 feet" +
                 "\nRight clicking while holding changes spell level");
@@ -53,6 +52,14 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl1
             Item.rare = ModContent.RarityType<Rarities.WizardRare>();
             Item.UseSound = SoundID.Item10;
             Item.knockBack = 5;
+        }
+
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            int index = tooltips.FindIndex(x => x.Name == "Damage");
+            if (index == -1)
+                return;
+            tooltips[index].Text = "2d8 + 2d8 per spell level above 1st level";
         }
 
         public override bool CanUseItem(Player player)

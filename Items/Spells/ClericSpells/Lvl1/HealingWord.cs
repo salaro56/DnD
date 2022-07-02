@@ -289,7 +289,7 @@ namespace DnD.Items.Spells.ClericSpells.Lvl1
             Projectile.localAI[0] += 1f;
             if (Projectile.localAI[0] > 9f)
             {
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < 6; i++)
                 {
                     Vector2 ProjectilePosition = Projectile.Center;
                     ProjectilePosition -= Projectile.velocity * ((float)i * 0.25f);
@@ -307,7 +307,16 @@ namespace DnD.Items.Spells.ClericSpells.Lvl1
             {
                 if (i != Main.myPlayer && Main.netMode == NetmodeID.MultiplayerClient)
                 {
-                    if (Projectile.Hitbox.Intersects(Main.player[i].Hitbox) && Main.player[i] != Main.LocalPlayer)
+                    if (Main.player[i].Distance(Main.LocalPlayer.Center) < 500)
+                    {
+                        Vector2 target = Main.player[i].Center;
+                        Vector2 dir = target - Projectile.Center;
+                        Vector2 vel = Vector2.Normalize(dir) * 10;
+
+                        Projectile.velocity = vel;
+                    }
+
+                    if (Projectile.Hitbox.Distance(Main.player[i].Center) < 50 && Main.player[i] != Main.player[Projectile.owner])
                     {
                         Main.player[i].statLife += healAmount;
                         CombatText.NewText(Main.player[i].getRect(), new Color(0, 255, 0), healAmount);

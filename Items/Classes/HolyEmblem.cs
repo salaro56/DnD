@@ -16,7 +16,7 @@ namespace DnD.Items.Classes
         {
             DisplayName.SetDefault("Holy Emblem");
             Tooltip.SetDefault("Increases magic damage by 5%" +
-                "\nIncreases summon damage by 5%" +
+                "\nIncreases summon damage by 10%" +
                 "\nA focus for clerics");
         }
 
@@ -41,8 +41,9 @@ namespace DnD.Items.Classes
             tooltips.Add(line);
             if (pc.playerLevel >= 2)
             {
-                TooltipLine line2 = new TooltipLine(Mod, "Feat", "Channel Divinity");
-                tooltips.Add(line2);
+                TooltipLine line2 = new TooltipLine(Mod, "Feat", "[c/51DA5F: Channel Divinity]");
+                TooltipLine line2a = new TooltipLine(Mod, "Feat", "Unlocks the ability to craft Channel Divinities");
+                tooltips.Add(line2); tooltips.Add(line2a);
             }
         }
         public override bool CanEquipAccessory(Player player, int slot, bool modded)
@@ -59,7 +60,7 @@ namespace DnD.Items.Classes
             pc.clericClass = true;
 
             player.GetDamage(DamageClass.Magic) += 0.05f;
-            player.GetDamage(DamageClass.Summon) += 0.05f;
+            player.GetDamage(DamageClass.Summon) += 0.10f;
 
             if (player.GetModPlayer<DnDPlayer>().SpellSlots == true)
             {

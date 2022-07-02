@@ -16,7 +16,6 @@
     <Folder Include="Items\Spells\ClericSpells\Lvl6\" />
     <Folder Include="Items\Spells\ClericSpells\Lvl7\" />
     <Folder Include="Items\Spells\ClericSpells\Lvl8\" />
-    <Folder Include="Items\Spells\ClericSpells\Lvl4\" />
     <Folder Include="Items\Spells\ClericSpells\Lvl5\" />
     <Folder Include="NPCS\Hostile\" />
     <Folder Include="NPCS\Boss\" />
