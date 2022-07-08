@@ -15,11 +15,11 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl9
 {
     internal class ChromaticDragon : ModItem
     {
-        public override string Texture => "Terraria/Images/Item_" + ItemID.ShadowbeamStaff;
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Chromatic Dragon");
+
+            ItemID.Sets.ItemIconPulse[Item.type] = true;
         }
 
         public override void SetDefaults()
