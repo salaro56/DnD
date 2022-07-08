@@ -8,12 +8,13 @@ using Terraria.ModLoader;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
 using Terraria.GameContent.Creative;
+using DnD.Common.Structs;
 
 namespace DnD.Items.Pets
 {
     internal class EternalToken : ModItem
     {
-        public string[] patreonNames = { "Zachary Zahradka", "RockmanSolid", "Salaro", "Test Dummy", "Phebe", "Jeo", "Nyx", "SkywardStar"};
+        PatreonNames names = ModContent.GetInstance<PatreonNames>();
 
         public override void SetStaticDefaults()
         {
@@ -26,7 +27,7 @@ namespace DnD.Items.Pets
 
         public override bool CanUseItem(Player player)
         {
-            if(patreonNames.Any(player.name.Contains))
+            if(names.patreonNames.Any(player.name.Contains))
             {
                 return true;
             }
@@ -38,7 +39,7 @@ namespace DnD.Items.Pets
 
         public override bool CanRightClick()
         {
-            if (patreonNames.Any(Main.LocalPlayer.name.Contains))
+            if (names.patreonNames.Any(Main.LocalPlayer.name.Contains))
             {
                 return true;
             }
@@ -50,7 +51,7 @@ namespace DnD.Items.Pets
 
         public override bool CanEquipAccessory(Player player, int slot, bool modded)
         {
-            if (patreonNames.Any(player.name.Contains))
+            if (names.patreonNames.Any(player.name.Contains))
             {
                 return true;
             }
@@ -70,7 +71,7 @@ namespace DnD.Items.Pets
 
         public override void UseStyle(Player player, Rectangle heldItemFrame)
         {
-            if (player.whoAmI == Main.myPlayer && player.itemTime == 0 && patreonNames.Any(player.name.Contains))
+            if (player.whoAmI == Main.myPlayer && player.itemTime == 0 && names.patreonNames.Any(player.name.Contains))
             {
                 player.AddBuff(Item.buffType, 3600);
             }
@@ -142,7 +143,7 @@ namespace DnD.Items.Pets
             int projType = ModContent.ProjectileType<D20>();
 
             // If the player is local, and there hasn't been a pet projectile spawned yet - spawn it.
-            if (player.whoAmI == Main.myPlayer && player.ownedProjectileCounts[projType] <= 0 && ModContent.GetInstance<EternalToken>().patreonNames.Any(player.name.Contains))
+            if (player.whoAmI == Main.myPlayer && player.ownedProjectileCounts[projType] <= 0 && ModContent.GetInstance<PatreonNames>().patreonNames.Any(player.name.Contains))
             {
                 var entitySource = player.GetSource_Buff(buffIndex);
 

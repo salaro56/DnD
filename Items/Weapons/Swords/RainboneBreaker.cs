@@ -59,19 +59,17 @@ namespace DnD.Items.Weapons.Swords
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
+            for (int i = 0; i < 1000; i++)
+            {
+                if (Main.projectile[i].active && Main.projectile[i].owner == Main.myPlayer && Main.projectile[i].type == Item.shoot || Main.projectile[i].active && Main.projectile[i].owner == Main.myPlayer && Main.projectile[i].type == ModContent.ProjectileType<BreakerSwing>())
+                {
+                    Main.projectile[i].Kill();
+                }
+            }
+
             Projectile.NewProjectile(source, player.Center.X, player.Center.Y, velocity.X, velocity.Y, type, damage, knockback, player.whoAmI);
             Projectile.NewProjectile(source, player.Center.X, player.Center.Y, velocity.X, velocity.Y, ModContent.ProjectileType<BreakerSwing>(), damage, knockback, player.whoAmI);
             return false;
-        }
-
-        public override void AddRecipes()
-        {
-            CreateRecipe()
-                .AddIngredient(ModContent.ItemType<ClassToken>())
-                .AddIngredient(ItemID.Feather, 5)
-                .AddIngredient(ItemID.SilverBar, 12)
-                .AddTile(ModContent.TileType<Furniture.PHBTile>())
-                .Register();
         }
     }
 

@@ -274,6 +274,7 @@ namespace DnD.Items.Spells.ClericSpells.Lvl1
             Projectile.DamageType = DamageClass.Magic;
             Projectile.timeLeft = 45;
             Projectile.tileCollide = false;
+            Projectile.netImportant = true;
         }
 
         public override bool? CanHitNPC(NPC target)
@@ -285,6 +286,29 @@ namespace DnD.Items.Spells.ClericSpells.Lvl1
         {
             int healAmount = Projectile.damage;
 
+            for (int i = 0; i < 255; i++)
+            {
+                if (i != Main.myPlayer && Main.netMode == NetmodeID.MultiplayerClient)
+                {
+                    if (Main.player[i].Distance(Main.LocalPlayer.Center) < 500)
+                    {
+                        Vector2 target = Main.player[i].Center;
+                        Vector2 dir = target - Projectile.Center;
+                        Vector2 vel = Vector2.Normalize(dir) * 10;
+
+                        Projectile.velocity = vel;
+                        Projectile.netUpdate = true;
+                    }
+
+                    if (Projectile.Hitbox.Distance(Main.player[i].Center) < 50 && Main.player[i] != Main.player[Projectile.owner])
+                    {
+                        Main.player[i].statLife += healAmount;
+                        CombatText.NewText(Main.player[i].getRect(), new Color(0, 255, 0), healAmount);
+                        NetMessage.SendData(MessageID.SpiritHeal, -1, -1, null, Main.player[i].whoAmI, healAmount);
+                        Projectile.Kill();
+                    }
+                }
+            }
 
             Projectile.localAI[0] += 1f;
             if (Projectile.localAI[0] > 9f)
@@ -302,31 +326,7 @@ namespace DnD.Items.Spells.ClericSpells.Lvl1
                     Main.dust[dust].velocity *= 0.2f;
                 }
             }
-
-            for (int i = 0; i < 255; i++)
-            {
-                if (i != Main.myPlayer && Main.netMode == NetmodeID.MultiplayerClient)
-                {
-                    if (Main.player[i].Distance(Main.LocalPlayer.Center) < 500)
-                    {
-                        Vector2 target = Main.player[i].Center;
-                        Vector2 dir = target - Projectile.Center;
-                        Vector2 vel = Vector2.Normalize(dir) * 10;
-
-                        Projectile.velocity = vel;
-                    }
-
-                    if (Projectile.Hitbox.Distance(Main.player[i].Center) < 50 && Main.player[i] != Main.player[Projectile.owner])
-                    {
-                        Main.player[i].statLife += healAmount;
-                        CombatText.NewText(Main.player[i].getRect(), new Color(0, 255, 0), healAmount);
-                        NetMessage.SendData(MessageID.SpiritHeal, -1, -1, null, Main.player[i].whoAmI, healAmount);
-                        Projectile.Kill();
-                    }
-                }
-            }
-
-            Projectile.netUpdate = true;
+            Projectile.rotation = Projectile.velocity.ToRotation();
         }
 
         public override void Kill(int timeLeft)

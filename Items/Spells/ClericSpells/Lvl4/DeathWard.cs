@@ -19,7 +19,7 @@ namespace DnD.Items.Spells.ClericSpells.Lvl4
         {
             Tooltip.SetDefault(value: "[c/FF0000:Level 4:]" +
                 "\nYou touch a creature and grant it a measure of protection from death" +
-                "\nThe first time a target would drop to 0 hit points, the target insteads drops to 20hp");
+                "\nThe first time a target would drop to 0 hit points, the target insteads drops to 50hp");
 
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
@@ -36,7 +36,7 @@ namespace DnD.Items.Spells.ClericSpells.Lvl4
             Item.UseSound = SoundID.Item4;
             Item.rare = ModContent.RarityType<Rarities.ClericRare>();
             Item.value = 0;
-            Item.mana = 10 + Main.LocalPlayer.GetModPlayer<DnDPlayer>().ProfBonus();
+            Item.mana = 10;
             Item.noUseGraphic = true;
             Item.damage = 1;
             Item.noMelee = true;
@@ -126,7 +126,7 @@ namespace DnD.Items.Spells.ClericSpells.Lvl4
             {
                 CombatText.NewText(player.getRect(), Main.OurFavoriteColor, "Warded!", true);
                 player.ClearBuff(ModContent.BuffType<WardedDeath>());
-                player.statLife += 20;
+                player.statLife += 50;
                 return false;
             }
             else return true;

@@ -39,6 +39,7 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl8
             Item.knockBack = 6;
             Item.value = Item.sellPrice(0, 42, 0, 0);
             Item.reuseDelay = Item.useAnimation + 6;
+            Item.mana = 12;
 
             //item configs
             Item.width = 32;

@@ -72,6 +72,8 @@ namespace DnD.Common.Players
 
         public override string FunctionalBackgroundTexture => "Terraria/Images/Inventory_Back11"; // pale blue
 
+        public override bool DrawFunctionalSlot => Main.EquipPageSelected != 1 ? true : false;
+
         public override bool CanAcceptItem(Item checkItem, AccessorySlotType context)
         {
             DnDPlayer pc = Main.LocalPlayer.GetModPlayer<DnDPlayer>();
