@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework;
 using Terraria.GameContent.ItemDropRules;
 using DnD.Items.Weapons.Swords;
 using DnD.Items.Spells.Wizard_Spells.Lvl8;
+using DnD.Items.MagItem.Accessories;
 
 namespace DnD
 {
@@ -111,10 +112,13 @@ namespace DnD
         {
             if(npc.type == NPCID.HallowBoss)
             {
-                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<RainboneBreaker>(), 3));
-                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SwordSwarm>(), 5));
+                npcLoot.Add(ItemDropRule.OneFromOptions(4, ModContent.ItemType<RainboneBreaker>(), ModContent.ItemType<SwordSwarm>()));
             }
         }
 
+        public override void ModifyGlobalLoot(GlobalLoot globalLoot)
+        {
+            globalLoot.Add(ItemDropRule.Common(ModContent.ItemType<RingOfDangersense>(), 500));
+        }
     }
 }

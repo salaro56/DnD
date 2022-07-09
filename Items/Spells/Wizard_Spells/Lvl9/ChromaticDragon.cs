@@ -18,7 +18,8 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl9
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Chromatic Dragon");
-
+            Tooltip.SetDefault(value: "[c/FF0000:Level 9:]" +
+            "\nCommand a mighty dragon spirit to maul your foes");
             ItemID.Sets.ItemIconPulse[Item.type] = true;
         }
 
@@ -26,7 +27,7 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl9
         {
             Item.width = 32;
             Item.height = 32;
-            Item.damage = 70;
+            Item.damage = 100;
             Item.DamageType = DamageClass.Magic;
             Item.knockBack = 0;
             Item.useAnimation = 15;
@@ -35,6 +36,7 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl9
             Item.shoot = ModContent.ProjectileType<Drag1>();
             Item.channel = true;
             Item.mana = 20;
+            Item.UseSound = SoundID.Item4;
         }
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
@@ -51,7 +53,9 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl9
             int p3 = Projectile.NewProjectile(source, position, velocity, ModContent.ProjectileType<Drag3>(), damage, knockback, player.whoAmI, p2);
             int p4 = Projectile.NewProjectile(source, position, velocity, ModContent.ProjectileType<Drag2>(), damage, knockback, player.whoAmI, p3);
             int p5 = Projectile.NewProjectile(source, position, velocity, ModContent.ProjectileType<Drag3>(), damage, knockback, player.whoAmI, p4);
-            int p6 = Projectile.NewProjectile(source, position, velocity, ModContent.ProjectileType<Drag4>(), damage, knockback, player.whoAmI, p5);
+            int p6 = Projectile.NewProjectile(source, position, velocity, ModContent.ProjectileType<Drag2>(), damage, knockback, player.whoAmI, p5);
+            int p7 = Projectile.NewProjectile(source, position, velocity, ModContent.ProjectileType<Drag3>(), damage, knockback, player.whoAmI, p6);
+            int p8 = Projectile.NewProjectile(source, position, velocity, ModContent.ProjectileType<Drag4>(), damage, knockback, player.whoAmI, p7);
             return false;
         }
 
@@ -91,14 +95,27 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl9
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 20;
             Projectile.aiStyle = -1;
+            Projectile.alpha = 255;
 
             botPoint = new Vector2(Projectile.Bottom.X, Projectile.Bottom.Y);
             topPoint = new Vector2(Projectile.Center.X, Projectile.Top.Y);
         }
 
+        private Projectile FindDragonHead()
+        {
+            for (int i = 0; i < Main.maxProjectiles; i++)
+            {
+                Projectile projectile = Main.projectile[i];
+                if(projectile.active && projectile.owner == Projectile.owner && projectile.type == parts[0])
+                {
+                    return projectile;
+                }
+            }
+            return null;
+        }
+
         public override void AI()
         {
-
             if (Main.player[Projectile.owner].dead || !Main.player[Projectile.owner].channel)
             {
                 Projectile.Kill();
@@ -108,25 +125,26 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl9
                 Projectile.timeLeft = 100;
             }
 
+            Projectile.alpha -= 42;
+            if (Projectile.alpha < 0)
+            {
+                Projectile.alpha = 0;
+            }
+
             if (Projectile.type == parts[0])
             {
                 Vector2 target = Main.MouseWorld;
                 Vector2 dir = target - Projectile.Center;
-                (dir.X > 0f).ToDirectionInt();
-                (dir.Y < 0f).ToDirectionInt();
-                float scaleFactor = 0.4f;
-                if (dir.Length() > 50)
+                Vector2 vel = Vector2.Normalize(dir) * 15;
+                
+                Projectile.velocity = vel;
+                if(Projectile.Distance(target) < 200)
                 {
-                    Projectile.velocity += Vector2.Normalize(dir) * scaleFactor * 1.5f;
-                    if (Vector2.Dot(Projectile.velocity, dir) < 0.25f)
-                    {
-                        Projectile.velocity *= 0.8f;
-                    }
+                    Projectile.velocity *= 0.6f;
                 }
-                float num22 = 30f;
-                if (Projectile.velocity.Length() > num22)
+                if(Projectile.Distance(target) < 30)
                 {
-                    Projectile.velocity = Vector2.Normalize(Projectile.velocity) * num22;
+                    Projectile.velocity *= 0.01f;
                 }
 
                 Projectile.rotation = Projectile.velocity.ToRotation() + (float)Math.PI / 2f;
@@ -149,44 +167,48 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl9
                         Main.dust[num13].noGravity = true;
                         Main.dust[num13].noLight = true;
                     }
-                    Projectile.alpha -= 42;
-                    if (Projectile.alpha < 0)
-                    {
-                        Projectile.alpha = 0;
-                    }
                 }
 
+                // fire breath
                 for (int i = 0; i < Main.maxNPCs; i++)
                 {
                     NPC npc = Main.npc[i];
                     Vector2 path = npc.Center - Projectile.Center;
-                    Vector2 vel = Vector2.Normalize(path) * 3;
+                    Vector2 vel2 = Vector2.Normalize(path) * 3;
 
-                    if (Projectile.Distance(npc.Center) < 150 && !npc.friendly && Main.player[Projectile.owner].CanHit(npc))
+                    if (Projectile.Distance(npc.Center) < 150 && !npc.friendly && Main.player[Projectile.owner].CanHit(npc) && npc.lifeMax > 0)
                     {
-                        int flame = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, vel, ProjectileID.Flames, (int)(Projectile.damage * 0.3f), Projectile.knockBack, Projectile.owner);
+                        int flame = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, vel2, ProjectileID.Flames, (int)(Projectile.damage * 0.2f), Projectile.knockBack, Projectile.owner);
                         Main.projectile[flame].friendly = true;
                     }
                 }
             }
             else
             {
+                bool flag2 = false;
                 Vector2 value = Vector2.Zero;
-                Vector2 _ = Vector2.Zero;
+                _ = Vector2.Zero;
                 float num14 = 0f;
                 float scaleFactor2 = 0f;
                 float scaleFactor3 = 1f;
+                if (Projectile.ai[1] == 1f)
+                {
+                    Projectile.ai[1] = 0f;
+                    Projectile.netUpdate = true;
+                }
                 int byUUID = Projectile.GetByUUID(Projectile.owner, (int)Projectile.ai[0]);
                 if (Main.projectile.IndexInRange(byUUID))
                 {
                     Projectile projectile = Main.projectile[byUUID];
                     if (projectile.active && projectile.owner == Main.myPlayer && (projectile.type == parts[0] || projectile.type == parts[1] || projectile.type == parts[2]))
                     {
+                        flag2 = true;
                         value = projectile.Center;
                         _ = projectile.velocity;
                         num14 = projectile.rotation;
                         scaleFactor2 = 16f;
                         scaleFactor3 = MathHelper.Clamp(projectile.scale, 0f, 50f);
+                        _ = projectile.alpha;
                         projectile.localAI[0] = Projectile.localAI[0] + 1f;
                         if (projectile.type != 625)
                         {
@@ -199,6 +221,20 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl9
                             return;
                         }
                     }
+                }
+                if (!flag2)
+                {
+                    for (int k = 0; k < 1000; k++)
+                    {
+                        Projectile projectile2 = Main.projectile[k];
+                        if (projectile2.active && projectile2.owner == Projectile.owner && ProjectileID.Sets.StardustDragon[projectile2.type] && projectile2.localAI[1] == Projectile.ai[0])
+                        {
+                            Projectile.ai[0] = projectile2.projUUID;
+                            projectile2.localAI[1] = Projectile.whoAmI;
+                            Projectile.netUpdate = true;
+                        }
+                    }
+                    return;
                 }
                 Projectile.velocity = Vector2.Zero;
                 Vector2 vector3 = value - Projectile.Center;
@@ -217,6 +253,17 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl9
                     Projectile.Center = value - Vector2.Normalize(vector3) * scaleFactor2 * scaleFactor3;
                 }
                 Projectile.spriteDirection = vector3.X > 0f ? 1 : -1;
+            }
+        }
+
+        public override void Kill(int timeLeft)
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                int d = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.FlameBurst, Projectile.velocity.X, Projectile.velocity.Y, 0, default);
+                Main.dust[d].noGravity = true;
+                Main.dust[d].noLight = false;
+                Main.dust[d].velocity *= 0.3f;
             }
         }
     }

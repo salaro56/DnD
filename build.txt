@@ -5,4 +5,4 @@ hideCode = true
 hideResources = true
 includeSource = false
 buildIgnore = *.csproj, *.user, obj\*, bin\*, .vs\*, Old\*
-version = 0.3.1.1
+version = 0.3.1.3
