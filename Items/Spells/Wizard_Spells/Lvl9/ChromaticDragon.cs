@@ -26,7 +26,11 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl9
         {
             Item.width = 32;
             Item.height = 32;
+<<<<<<< Updated upstream
             Item.damage = 70;
+=======
+            Item.damage = 140;
+>>>>>>> Stashed changes
             Item.DamageType = DamageClass.Magic;
             Item.knockBack = 0;
             Item.useAnimation = 15;
@@ -91,6 +95,11 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl9
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 20;
             Projectile.aiStyle = -1;
+<<<<<<< Updated upstream
+=======
+            Projectile.alpha = 255;
+            Projectile.DamageType = DamageClass.Magic;
+>>>>>>> Stashed changes
 
             botPoint = new Vector2(Projectile.Bottom.X, Projectile.Bottom.Y);
             topPoint = new Vector2(Projectile.Center.X, Projectile.Top.Y);
@@ -162,10 +171,15 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl9
                     Vector2 path = npc.Center - Projectile.Center;
                     Vector2 vel = Vector2.Normalize(path) * 3;
 
+<<<<<<< Updated upstream
                     if (Projectile.Distance(npc.Center) < 150 && !npc.friendly && Main.player[Projectile.owner].CanHit(npc))
+=======
+                    if (Projectile.Distance(npc.Center) < 150 && !npc.friendly && Main.player[Projectile.owner].CanHit(npc) && npc.lifeMax > 0 && npc.active)
+>>>>>>> Stashed changes
                     {
                         int flame = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, vel, ProjectileID.Flames, (int)(Projectile.damage * 0.3f), Projectile.knockBack, Projectile.owner);
                         Main.projectile[flame].friendly = true;
+                        Main.projectile[flame].DamageType = DamageClass.Magic;
                     }
                 }
             }

@@ -14,7 +14,7 @@ namespace DnD.Items.Pets
 {
     internal class EternalToken : ModItem
     {
-        PatreonNames names = ModContent.GetInstance<PatreonNames>();
+        PatreonNames names = new();
 
         public override void SetStaticDefaults()
         {
@@ -27,7 +27,7 @@ namespace DnD.Items.Pets
 
         public override bool CanUseItem(Player player)
         {
-            if(names.patreonNames.Any(player.name.Contains))
+            if(names.patreonNames.Contains(player.name))
             {
                 return true;
             }
@@ -39,7 +39,7 @@ namespace DnD.Items.Pets
 
         public override bool CanRightClick()
         {
-            if (names.patreonNames.Any(Main.LocalPlayer.name.Contains))
+            if (names.patreonNames.Contains(Main.LocalPlayer.name))
             {
                 return true;
             }
@@ -51,7 +51,7 @@ namespace DnD.Items.Pets
 
         public override bool CanEquipAccessory(Player player, int slot, bool modded)
         {
-            if (names.patreonNames.Any(player.name.Contains))
+            if (names.patreonNames.Contains(player.name))
             {
                 return true;
             }
@@ -63,7 +63,7 @@ namespace DnD.Items.Pets
 
         public override void SetDefaults()
         {
-            Item.CloneDefaults(ItemID.ZephyrFish);
+            Item.CloneDefaults(ItemID.SkeletronPetItem);
 
             Item.shoot = ModContent.ProjectileType<D20>();
             Item.buffType = ModContent.BuffType<PatreonPet>();
@@ -71,7 +71,7 @@ namespace DnD.Items.Pets
 
         public override void UseStyle(Player player, Rectangle heldItemFrame)
         {
-            if (player.whoAmI == Main.myPlayer && player.itemTime == 0 && names.patreonNames.Any(player.name.Contains))
+            if (player.whoAmI == Main.myPlayer && player.itemTime == 0 && names.patreonNames.Contains(player.name))
             {
                 player.AddBuff(Item.buffType, 3600);
             }
@@ -96,7 +96,7 @@ namespace DnD.Items.Pets
 
         public override void SetDefaults()
         {
-            Projectile.CloneDefaults(ProjectileID.ZephyrFish); // Copy the stats of the Zephyr Fish
+            Projectile.CloneDefaults(ProjectileID.SkeletronPet); // Copy the stats of the Zephyr Fish
             Projectile.scale = 0.75f;
 
             AIType = ProjectileID.ZephyrFish; // Copy the AI of the Zephyr Fish.
@@ -127,6 +127,8 @@ namespace DnD.Items.Pets
 
     internal class PatreonPet : ModBuff
     {
+        PatreonNames names = new();
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Lucky D20");
@@ -143,7 +145,7 @@ namespace DnD.Items.Pets
             int projType = ModContent.ProjectileType<D20>();
 
             // If the player is local, and there hasn't been a pet projectile spawned yet - spawn it.
-            if (player.whoAmI == Main.myPlayer && player.ownedProjectileCounts[projType] <= 0 && ModContent.GetInstance<PatreonNames>().patreonNames.Any(player.name.Contains))
+            if (player.whoAmI == Main.myPlayer && player.ownedProjectileCounts[projType] <= 0 && names.patreonNames.Contains(player.name))
             {
                 var entitySource = player.GetSource_Buff(buffIndex);
 
