@@ -29,7 +29,11 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl9
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
             Item.damage = 70;
+=======
+            Item.damage = 140;
+>>>>>>> Stashed changes
 =======
             Item.damage = 140;
 >>>>>>> Stashed changes
@@ -109,6 +113,9 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl9
             Projectile.DamageType = DamageClass.Magic;
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
@@ -188,7 +195,11 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl9
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                     if (Projectile.Distance(npc.Center) < 150 && !npc.friendly && Main.player[Projectile.owner].CanHit(npc))
+=======
+                    if (Projectile.Distance(npc.Center) < 150 && !npc.friendly && Main.player[Projectile.owner].CanHit(npc) && npc.lifeMax > 0 && npc.active)
+>>>>>>> Stashed changes
 =======
                     if (Projectile.Distance(npc.Center) < 150 && !npc.friendly && Main.player[Projectile.owner].CanHit(npc) && npc.lifeMax > 0 && npc.active)
 >>>>>>> Stashed changes
