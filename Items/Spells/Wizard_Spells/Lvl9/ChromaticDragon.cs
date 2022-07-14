@@ -27,7 +27,7 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl9
         {
             Item.width = 32;
             Item.height = 32;
-            Item.damage = 100;
+            Item.damage = 140;
             Item.DamageType = DamageClass.Magic;
             Item.knockBack = 0;
             Item.useAnimation = 15;
@@ -95,7 +95,9 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl9
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 20;
             Projectile.aiStyle = -1;
+
             Projectile.alpha = 255;
+            Projectile.DamageType = DamageClass.Magic;
 
             botPoint = new Vector2(Projectile.Bottom.X, Projectile.Bottom.Y);
             topPoint = new Vector2(Projectile.Center.X, Projectile.Top.Y);
@@ -175,11 +177,11 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl9
                     NPC npc = Main.npc[i];
                     Vector2 path = npc.Center - Projectile.Center;
                     Vector2 vel2 = Vector2.Normalize(path) * 3;
-
-                    if (Projectile.Distance(npc.Center) < 150 && !npc.friendly && Main.player[Projectile.owner].CanHit(npc) && npc.lifeMax > 0)
+                    if (Projectile.Distance(npc.Center) < 150 && !npc.friendly && Main.player[Projectile.owner].CanHit(npc) && npc.lifeMax > 0 && npc.active)
                     {
                         int flame = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, vel2, ProjectileID.Flames, (int)(Projectile.damage * 0.2f), Projectile.knockBack, Projectile.owner);
                         Main.projectile[flame].friendly = true;
+                        Main.projectile[flame].DamageType = DamageClass.Magic;
                     }
                 }
             }

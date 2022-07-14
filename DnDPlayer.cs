@@ -42,6 +42,7 @@ namespace DnD
         public int DailySteps = 3;
         public int MysticSteps = 3;
 
+        public float roughScreenShakeTimer = 0;
 
         public void LevelUp()
         {
@@ -223,26 +224,44 @@ namespace DnD
 
         public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
-            DnDPlayer pc = Player.GetModPlayer<DnDPlayer>();
-            for (int i = 0; i < ExtraAttack(); i++)
-            {
-                if (pc.barbClass == true && Main.rand.Next(1, 20) + pc.ProfBonus() >= 17 && proj.DamageType != DamageClass.Magic || pc.fighterClass == true && Main.rand.Next(1, 20) + pc.ProfBonus() >= 17 && proj.DamageType != DamageClass.Magic)
-                {
-                    damage *= 2;
-                    CombatText.NewText(Main.LocalPlayer.getRect(), Color.Red, "Extra Attack!");
-                }
-            }
+            ExAttackProj(ref damage, proj);
         }
 
         public override void ModifyHitNPC(Item item, NPC target, ref int damage, ref float knockback, ref bool crit)
         {
+            EXAttackItem(ref damage, item);
+        }
+
+        public void ExAttackProj(ref int damage, Projectile proj)
+        {
             DnDPlayer pc = Player.GetModPlayer<DnDPlayer>();
             for (int i = 0; i < ExtraAttack(); i++)
             {
-                if (pc.barbClass == true && Main.rand.Next(1, 20) + pc.ProfBonus() >= 17 && item.DamageType != DamageClass.Magic || pc.fighterClass == true && Main.rand.Next(1, 20) + pc.ProfBonus() >= 17 && item.DamageType != DamageClass.Magic)
+                if (pc.barbClass == true && Main.rand.Next(1, 20) + pc.ProfBonus() >= 17 && proj.DamageType != DamageClass.Magic && proj.DamageType != DamageClass.Summon || pc.fighterClass == true && Main.rand.Next(1, 20) + pc.ProfBonus() >= 17 && proj.DamageType != DamageClass.Magic && proj.DamageType != DamageClass.Summon)
                 {
                     damage *= 2;
-                    CombatText.NewText(Main.LocalPlayer.getRect(), Color.Red, "Extra Attack!");
+                    if (ModContent.GetInstance<Common.Configs.DnDConfigs>().ScreenShake == true)
+                    {
+                        roughScreenShakeTimer = 5f;
+                    }
+                    CombatText.NewText(Main.LocalPlayer.getRect(), Color.PaleVioletRed, "Extra Attack!");
+                }
+            }
+        }
+
+        public void EXAttackItem(ref int damage, Item item)
+        {
+            DnDPlayer pc = Player.GetModPlayer<DnDPlayer>();
+            for (int i = 0; i < ExtraAttack(); i++)
+            {
+                if (pc.barbClass == true && Main.rand.Next(1, 20) + pc.ProfBonus() >= 17 && item.DamageType != DamageClass.Magic && item.DamageType != DamageClass.Summon || pc.fighterClass == true && Main.rand.Next(1, 20) + pc.ProfBonus() >= 17 && item.DamageType != DamageClass.Magic && item.DamageType != DamageClass.Summon)
+                {
+                    damage *= 2;
+                    if (ModContent.GetInstance<Common.Configs.DnDConfigs>().ScreenShake == true)
+                    {
+                        roughScreenShakeTimer = 5f;
+                    }
+                    CombatText.NewText(Main.LocalPlayer.getRect(), Color.PaleVioletRed, "Extra Attack!");
                 }
             }
         }
@@ -257,6 +276,16 @@ namespace DnD
                 20 => 3,
                 _ => 0,
             };
+        }
+
+        public override void ModifyScreenPosition()
+        {
+            if (roughScreenShakeTimer > 0)
+            {
+                roughScreenShakeTimer--;
+                Vector2 shake = new Vector2(Main.rand.NextFloat(-roughScreenShakeTimer, roughScreenShakeTimer), Main.rand.NextFloat(-roughScreenShakeTimer, roughScreenShakeTimer));
+                Main.screenPosition += shake;
+            }
         }
 
 
