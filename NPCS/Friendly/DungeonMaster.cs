@@ -133,6 +133,10 @@ namespace DnD.NPCS.Friendly
 				{
 					return true;
 				}
+				else if (player.GetModPlayer<DnDPlayer>().playerLevel >= 1)
+                {
+					return true;
+                }
 			}
 
 			return false;
