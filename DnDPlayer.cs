@@ -30,8 +30,10 @@ namespace DnD
         public bool paladinClass;
         public bool barbClass;
         public bool rogueClass;
+        public bool rangerClass;
 
         public bool SpellSlots;
+        public bool isConcentrated;
 
         public bool canRage = false;
         public bool isRaging = false;
@@ -188,6 +190,7 @@ namespace DnD
 
         public override void ResetEffects()
         {
+            rangerClass = false;
             clericClass = false;
             wizardClass = false;
             barbClass = false;
@@ -195,6 +198,7 @@ namespace DnD
             canRage = false;
             rogueClass = false;
             isSneaking = false;
+            isConcentrated = false;
 
             NightBlade jumps = ModContent.GetInstance<NightBlade>();
 
@@ -237,7 +241,7 @@ namespace DnD
             DnDPlayer pc = Player.GetModPlayer<DnDPlayer>();
             for (int i = 0; i < ExtraAttack(); i++)
             {
-                if (pc.barbClass == true && Main.rand.Next(1, 20) + pc.ProfBonus() >= 17 && proj.DamageType != DamageClass.Magic && proj.DamageType != DamageClass.Summon || pc.fighterClass == true && Main.rand.Next(1, 20) + pc.ProfBonus() >= 17 && proj.DamageType != DamageClass.Magic && proj.DamageType != DamageClass.Summon)
+                if (pc.barbClass == true && Main.rand.Next(1, 20) + pc.ProfBonus() >= 17 && proj.DamageType != DamageClass.Magic && proj.DamageType != DamageClass.Summon || pc.rangerClass == true && Main.rand.Next(1, 20) + pc.ProfBonus() >= 17 && proj.DamageType != DamageClass.Magic && proj.DamageType != DamageClass.Summon)
                 {
                     damage *= 2;
                     if (ModContent.GetInstance<Common.Configs.DnDConfigs>().ScreenShake == true)
@@ -254,7 +258,7 @@ namespace DnD
             DnDPlayer pc = Player.GetModPlayer<DnDPlayer>();
             for (int i = 0; i < ExtraAttack(); i++)
             {
-                if (pc.barbClass == true && Main.rand.Next(1, 20) + pc.ProfBonus() >= 17 && item.DamageType != DamageClass.Magic && item.DamageType != DamageClass.Summon || pc.fighterClass == true && Main.rand.Next(1, 20) + pc.ProfBonus() >= 17 && item.DamageType != DamageClass.Magic && item.DamageType != DamageClass.Summon)
+                if (pc.barbClass == true && Main.rand.Next(1, 20) + pc.ProfBonus() >= 17 && item.DamageType != DamageClass.Magic && item.DamageType != DamageClass.Summon || pc.rangerClass == true && Main.rand.Next(1, 20) + pc.ProfBonus() >= 17 && item.DamageType != DamageClass.Magic && item.DamageType != DamageClass.Summon)
                 {
                     damage *= 2;
                     if (ModContent.GetInstance<Common.Configs.DnDConfigs>().ScreenShake == true)

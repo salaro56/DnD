@@ -31,6 +31,7 @@ namespace DnD.Items.Classes
             Item.height = 30;
             Item.accessory = true;
             Item.maxStack = 1;
+            
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
@@ -44,6 +45,12 @@ namespace DnD.Items.Classes
                 TooltipLine line2 = new TooltipLine(Mod, "Feat", "[c/51DA5F: Channel Divinity]");
                 TooltipLine line2a = new TooltipLine(Mod, "Feat", "Unlocks the ability to craft Channel Divinities");
                 tooltips.Add(line2); tooltips.Add(line2a);
+            }
+            if(pc.playerLevel >= 5)
+            {
+                TooltipLine line3 = new TooltipLine(Mod, "Feat", "[c/51DA5F: Destroy Undead]");
+                TooltipLine line3a = new TooltipLine(Mod, "Feat", "Starting at 5th level, when an undead fails its save it is destroyed");
+                tooltips.Add(line3); tooltips.Add(line3a);
             }
         }
         public override bool CanEquipAccessory(Player player, int slot, bool modded)

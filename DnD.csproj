@@ -12,12 +12,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Graphics\Trails\" />
-    <Folder Include="Items\Spells\ClericSpells\Lvl9\" />
+    <Folder Include="Items\Spells\ClericSpells\Lvl5\" />
     <Folder Include="Items\Spells\ClericSpells\Lvl6\" />
+    <Folder Include="Items\Spells\ClericSpells\Lvl9\" />
     <Folder Include="Items\Spells\ClericSpells\Lvl7\" />
     <Folder Include="Items\Spells\ClericSpells\Lvl8\" />
-    <Folder Include="Items\Spells\ClericSpells\Lvl5\" />
-    <Folder Include="NPCS\Hostile\" />
     <Folder Include="NPCS\Boss\" />
     <Folder Include="Sounds\Item\" />
   </ItemGroup>

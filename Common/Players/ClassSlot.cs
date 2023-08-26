@@ -94,6 +94,10 @@ namespace DnD.Common.Players
             {
                 return true;
             }
+            else if (checkItem.Name == "Ranger's Quiver")
+            {
+                return true;
+            }
             else return false;
         }
 
@@ -112,6 +116,10 @@ namespace DnD.Common.Players
                 return true;
             }
             else if (item.Name == "Rogue's Dagger")
+            {
+                return true;
+            }
+            else if (item.Name == "Ranger's Quiver")
             {
                 return true;
             }

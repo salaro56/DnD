@@ -87,6 +87,10 @@ namespace DnD.UI
 			var modPlayer = Main.LocalPlayer.GetModPlayer<DnDPlayer>();
 			// Setting the text per tick to update and show our resource values.
 			text.SetText($"[c/FF0000:Lvl: {modPlayer.playerLevel} - ] {modPlayer.experiencePoints} / {modPlayer.XPToLevel()}");
+			if(modPlayer.playerLevel >= 20)
+            {
+				text.SetText($"[c/FF0000:Lvl: {modPlayer.playerLevel} - ] {modPlayer.experiencePoints} / Max Level");
+			}
 			base.Update(gameTime);
 		}
 	}

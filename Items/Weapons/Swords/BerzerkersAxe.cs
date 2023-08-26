@@ -28,6 +28,7 @@ namespace DnD.Items.Weapons.Swords
             Item.height = 86;
 
             Item.damage = 1;
+            Item.DamageType = DamageClass.Melee;
             Item.knockBack = 5;
 
             Item.useTime = 20;

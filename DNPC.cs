@@ -118,7 +118,10 @@ namespace DnD
 
         public override void ModifyGlobalLoot(GlobalLoot globalLoot)
         {
-            globalLoot.Add(ItemDropRule.Common(ModContent.ItemType<RingOfDangersense>(), 500));
+
+            globalLoot.Add(ItemDropRule.Common(ModContent.ItemType<RingOfDangersense>(), 1000));
+
+            globalLoot.Add(ItemDropRule.Common(ModContent.ItemType<SmallGlowRing>(), 700));
         }
     }
 }

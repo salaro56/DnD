@@ -49,6 +49,11 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl4
             {
                 return false;
             }
+            else if (pc.isConcentrated == true)
+            {
+                CombatText.NewText(player.getRect(), Color.Blue, "Concentrated");
+                return false;
+            }
             else return true;
         }
 
@@ -80,6 +85,7 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl4
                 int dustnumber = Dust.NewDust(player.position, player.width, player.height, DustID.Stone, 0f, 0f, 200, default(Color), 0.8f);
                 Main.dust[dustnumber].velocity *= 0.3f;
             }
+            player.GetModPlayer<DnDPlayer>().isConcentrated = true;
         }
     }
 }

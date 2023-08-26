@@ -62,6 +62,11 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl2
             {
                 return false;
             }
+            else if (pc.isConcentrated == true)
+            {
+                CombatText.NewText(player.getRect(), Color.Blue, "Concentrated");
+                return false;
+            }
             else
             {
                 if (player.altFunctionUse == 2)
@@ -210,6 +215,11 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl2
                 // Or more compactly Projectile.frame = ++Projectile.frame % Main.projFrames[Projectile.type];
                 if (++Projectile.frame >= Main.projFrames[Projectile.type])
                     Projectile.frame = 0;
+            }
+
+            if (Projectile.active == true)
+            {
+                Main.player[Projectile.owner].GetModPlayer<DnDPlayer>().isConcentrated = true;
             }
         }
 

@@ -22,7 +22,7 @@ namespace DnD.Items.Classes
             DisplayName.SetDefault("Rage Soul");
             Tooltip.SetDefault("Increases melee damage by 15%" +
                 "\nIncreases max health" +
-                "\nRequired for barbarians");
+                "\nThe soul of a barbarians");
 
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(5, 4));
             ItemID.Sets.AnimatesAsSoul[Item.type] = true;
@@ -94,20 +94,20 @@ namespace DnD.Items.Classes
             tooltips.Add(line);
             TooltipLine line1x = new TooltipLine(Mod, "Feat", "[c/51DA5F: Rage]");
             TooltipLine line1a = new TooltipLine(Mod, "Feat", "Press the rage button to enter a rage. Can't be wearing armour while raging");
-            tooltips.Add(line1a);
             tooltips.Add(line1x);
+            tooltips.Add(line1a);
             TooltipLine line2 = new TooltipLine(Mod, "Feat", "[c/51DA5F: Unarmoured defense]");
             TooltipLine line2a = new TooltipLine(Mod, "Feat", "Increases defense based on proficiency bonus and level as long as you aren't wearing armour");
-            tooltips.Add(line2a);
             tooltips.Add(line2);
-            if(pc.playerLevel >= 5)
+            tooltips.Add(line2a);
+            if (pc.playerLevel >= 5)
             {
                 TooltipLine line3 = new TooltipLine(Mod, "Feat", "[c/51DA5F: Extra Attack]");
                 TooltipLine line3a = new TooltipLine(Mod, "Feat", "Occassionally strike again dealing more damage, gain more attacks at higher levels");
                 TooltipLine line4 = new TooltipLine(Mod, "Feat", "[c/51DA5F: Fast Movement]");
                 TooltipLine line4a = new TooltipLine(Mod, "Feat", "Increases movement speed");
-                tooltips.Add(line3); tooltips.Add(line4);
-                tooltips.Add(line3a); tooltips.Add(line4a);
+                tooltips.Add(line3); tooltips.Add(line3a);
+                tooltips.Add(line4); tooltips.Add(line4a);
             }
             if(pc.playerLevel >= 9)
             {

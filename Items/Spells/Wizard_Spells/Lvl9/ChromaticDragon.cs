@@ -39,6 +39,21 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl9
             Item.UseSound = SoundID.Item4;
         }
 
+        public override bool CanUseItem(Player player)
+        {
+            DnDPlayer pc = player.GetModPlayer<DnDPlayer>();
+            if (pc.wizardClass == false || pc.isRaging == true)
+            {
+                return false;
+            }
+            else if (pc.isConcentrated == true)
+            {
+                CombatText.NewText(player.getRect(), Color.Blue, "Concentrated");
+                return false;
+            }
+            else return true;
+        }
+
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             for (int i = 0; i < 1000; i++)
@@ -101,6 +116,7 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl9
 
             botPoint = new Vector2(Projectile.Bottom.X, Projectile.Bottom.Y);
             topPoint = new Vector2(Projectile.Center.X, Projectile.Top.Y);
+
         }
 
         private Projectile FindDragonHead()
@@ -127,6 +143,11 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl9
                 Projectile.timeLeft = 100;
             }
 
+            if(Projectile.active == true)
+            {
+                Main.player[Projectile.owner].GetModPlayer<DnDPlayer>().isConcentrated = true;
+            }
+
             Projectile.alpha -= 42;
             if (Projectile.alpha < 0)
             {
@@ -137,17 +158,35 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl9
             {
                 Vector2 target = Main.MouseWorld;
                 Vector2 dir = target - Projectile.Center;
-                Vector2 vel = Vector2.Normalize(dir) * 15;
-                
-                Projectile.velocity = vel;
-                if(Projectile.Distance(target) < 200)
+                Vector2 vel = Vector2.Normalize(dir) * 3;
+
+                Rectangle targetPosition = new Rectangle((int)target.X, (int)target.Y, 10, 10);
+
+                float scaleFactor = 0.4f;
+
+                if(dir.Length() < 500)
                 {
-                    Projectile.velocity *= 0.6f;
+                    scaleFactor = 0.6f;
                 }
-                if(Projectile.Distance(target) < 30)
+                if(dir.Length() < 200)
                 {
-                    Projectile.velocity *= 0.01f;
+                    scaleFactor = 0.4f;
                 }
+                if (dir.Length() > targetPosition.Size().Length() * 0.75f)
+                {
+                    Projectile.velocity += Vector2.Normalize(dir) * scaleFactor * 1.5f;
+                    if(Vector2.Dot(Projectile.velocity, dir) < 0.25f)
+                    {
+                        Projectile.velocity *= 0.8f;
+                    }
+                }
+                float num1 = 30f;
+                if(Projectile.velocity.Length() > num1)
+                {
+                    Projectile.velocity = Vector2.Normalize(Projectile.velocity) * num1;
+                }
+
+                //Projectile.velocity += vel;
 
                 Projectile.rotation = Projectile.velocity.ToRotation() + (float)Math.PI / 2f;
                 int num24 = Projectile.direction;

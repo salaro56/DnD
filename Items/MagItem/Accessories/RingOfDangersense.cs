@@ -22,6 +22,7 @@ namespace DnD.Items.MagItem.Accessories
         {
             //Item Stats
             Item.rare = ItemRarityID.Green;
+            Item.value = Item.sellPrice(0, 0, 15, 0);
 
             //Item Configs
             Item.width = 30;

@@ -52,7 +52,11 @@ namespace DnD.Items.Weapons.Swords
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            Projectile.NewProjectile(source, player.Center.X, player.Center.Y, velocity.X, velocity.Y, type, damage, knockback, player.whoAmI);
+            ModLoader.TryGetMod("TerrariaOverhaul", out Mod TerrariaOverhaul);
+            if (TerrariaOverhaul == null)
+            {
+                Projectile.NewProjectile(source, player.Center.X, player.Center.Y, velocity.X, velocity.Y, type, damage, knockback, player.whoAmI);
+            }
             return false;
         }
 
@@ -61,11 +65,10 @@ namespace DnD.Items.Weapons.Swords
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<ClassToken>())
                 .AddIngredient(ItemID.Feather, 5)
-                .AddIngredient(ItemID.SilverBar, 12)
-                .AddTile(ModContent.TileType<Furniture.PHBTile>())
+                .AddIngredient(ModContent.ItemType<Craftables.CelestialBar>(), 12)
+                .AddTile(ModContent.TileType<Furniture.MMTile>())
                 .Register();
         }
-
     }
 
     internal class AegisSwing : ModProjectile
@@ -74,28 +77,43 @@ namespace DnD.Items.Weapons.Swords
         {
             Projectile.damage = 30;
 
+            Projectile.timeLeft = 25;
+
             Projectile.tileCollide = false;
-            Projectile.width = 192;
-            Projectile.height = 192;
+            Projectile.width = 360;
+            Projectile.height = 200;
             Projectile.penetrate = -1;
 
             Projectile.DamageType = DamageClass.Melee;
             Projectile.friendly = true;
 
             Projectile.light = 0.8f;
-            Projectile.alpha = 255;
+            Projectile.alpha = 150;
+
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 25;
         }
 
         public override void AI()
         {
-            FadeInAndOut();
-
-            Projectile.localAI[0] += 1;
-
             Player player = Main.player[Projectile.owner];
 
+            Vector2 rrp = player.RotatedRelativePoint(player.MountedCenter, false);
+            double deg = (double)Projectile.ai[1] * 4;
+            double rad = deg * (Math.PI / (-90 * player.direction));
+            double dist = 150f;
+            float Rot = (player.Center - Projectile.Center).ToRotation() - MathHelper.ToRadians(90);
+            Projectile.rotation = Rot;
+            Projectile.spriteDirection = player.direction;
 
-            float x = 0;
+            rad = deg * (Math.PI / (90 * player.direction));
+
+            Projectile.position.X = (player.Center.X - ((int)(Math.Cos(rad) * dist) * player.direction) - Projectile.width / 2);
+            Projectile.position.Y = (player.Center.Y - ((int)(Math.Sin(rad) * dist) * player.direction) - Projectile.height / 2);
+            Projectile.ai[1] += 1f;
+
+
+            /*float x = 0;
             if(player.direction == 1)
             {
                 x = (player.Center.X - 240) + (MathF.Cos((Projectile.localAI[0] - 20) * 0.1f) * 200);
@@ -129,33 +147,11 @@ namespace DnD.Items.Weapons.Swords
 
             Projectile.rotation = player.itemRotation;
 
-            Projectile.spriteDirection = player.direction;
+            Projectile.spriteDirection = player.direction;*/
 
             if (Projectile.localAI[0] >= 20)
             {
                 Projectile.Kill();
-            }
-        }
-
-        private void FadeInAndOut()
-        {
-            // If last less than 50 ticks — fade in, than more — fade out
-            if (Projectile.ai[0] <= 10f)
-            {
-                // Fade in
-                Projectile.alpha -= 50;
-                // Cap alpha before timer reaches 50 ticks
-                if (Projectile.alpha < 150)
-                    Projectile.alpha = 150;
-                return;
-            }
-            else if (Projectile.ai[0] >= 15)
-            {
-                // Fade out
-                Projectile.alpha += 55;
-                // Cap alpha to the maximum 255(complete transparent)
-                if (Projectile.alpha > 255)
-                    Projectile.alpha = 255;
             }
         }
 

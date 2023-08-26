@@ -17,7 +17,8 @@ namespace DnD.Common.Structs
             "Test Dummy", 
             "Phebe", 
             "Jeo", 
-            "Nyx"
+            "Nyx",
+            "Wryneck"
         };
     }
 }

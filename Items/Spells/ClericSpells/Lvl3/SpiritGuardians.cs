@@ -67,6 +67,11 @@ namespace DnD.Items.Spells.ClericSpells.Lvl3
             {
                 return false;
             }
+            else if(pc.isConcentrated == true)
+            {
+                CombatText.NewText(player.getRect(), Color.Blue, "Concentrated");
+                return false;
+            }
             else
             {
                 if (player.altFunctionUse == 2)
@@ -221,11 +226,13 @@ namespace DnD.Items.Spells.ClericSpells.Lvl3
             for (int i = 0; i < Main.maxNPCs; i++)
             {
                 NPC npc = Main.npc[i];
-                if(Vector2.Distance(player.Center, npc.Center) <= 200)
+                if(Vector2.Distance(player.Center, npc.Center) <= 200 && !npc.boss)
                 {
-                    npc.velocity *= 0.5f;
+                    npc.velocity *= 0.8f;
                 }
             }
+
+            player.GetModPlayer<DnDPlayer>().isConcentrated = true;
         }
     }
 

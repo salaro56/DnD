@@ -21,7 +21,6 @@ C:\Users\willi\Documents\My Games\Terraria\tModLoader\ModSources\DnD\bin\Debug\n
 C:\Users\willi\Documents\My Games\Terraria\tModLoader\ModSources\DnD\bin\Debug\net6.0\NVorbis.dll
 C:\Users\willi\Documents\My Games\Terraria\tModLoader\ModSources\DnD\bin\Debug\net6.0\RailSDK.Net.dll
 C:\Users\willi\Documents\My Games\Terraria\tModLoader\ModSources\DnD\bin\Debug\net6.0\ReLogic.dll
-C:\Users\willi\Documents\My Games\Terraria\tModLoader\ModSources\DnD\bin\Debug\net6.0\SixLabors.ImageSharp.dll
 C:\Users\willi\Documents\My Games\Terraria\tModLoader\ModSources\DnD\bin\Debug\net6.0\Steamworks.NET.dll
 C:\Users\willi\Documents\My Games\Terraria\tModLoader\ModSources\DnD\bin\Debug\net6.0\SteelSeriesEngineWrapper.dll
 C:\Users\willi\Documents\My Games\Terraria\tModLoader\ModSources\DnD\bin\Debug\net6.0\System.CodeDom.dll
@@ -50,7 +49,6 @@ C:\Users\willi\Documents\My Games\Terraria\tModLoader\ModSources\DnD\bin\Debug\n
 C:\Users\willi\Documents\My Games\Terraria\tModLoader\ModSources\DnD\bin\Debug\net6.0\MonoMod.Utils.xml
 C:\Users\willi\Documents\My Games\Terraria\tModLoader\ModSources\DnD\bin\Debug\net6.0\ReLogic.pdb
 C:\Users\willi\Documents\My Games\Terraria\tModLoader\ModSources\DnD\bin\Debug\net6.0\ReLogic.xml
-C:\Users\willi\Documents\My Games\Terraria\tModLoader\ModSources\DnD\bin\Debug\net6.0\SixLabors.ImageSharp.xml
 C:\Users\willi\Documents\My Games\Terraria\tModLoader\ModSources\DnD\bin\Debug\net6.0\System.CodeDom.xml
 C:\Users\willi\Documents\My Games\Terraria\tModLoader\ModSources\DnD\bin\Debug\net6.0\System.Configuration.ConfigurationManager.xml
 C:\Users\willi\Documents\My Games\Terraria\tModLoader\ModSources\DnD\bin\Debug\net6.0\System.Diagnostics.PerformanceCounter.xml

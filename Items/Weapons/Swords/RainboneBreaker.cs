@@ -106,45 +106,23 @@ namespace DnD.Items.Weapons.Swords
             return false;
         }
 
-        private void UpdateAim(Vector2 source, float speed)
-        {
-            // Get the player's current aiming direction as a normalized vector.
-            Vector2 aim = Vector2.Normalize(Main.MouseWorld - source);
-            if (aim.HasNaNs())
-            {
-                aim = -Vector2.UnitY;
-            }
-
-        }
-
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
             Vector2 rrp = player.RotatedRelativePoint(player.MountedCenter, false);
             double deg = (double)Projectile.ai[1] * 5;
-            double rad = deg * (Math.PI / -90);
+            double rad = deg * (Math.PI / (-90 * player.direction));
             double dist = 100f;
-            float Rot = (player.Center - Projectile.Center).ToRotation() - 15.0625f;
+            float Rot = (player.Center - Projectile.Center).ToRotation() - MathHelper.ToRadians(125);
             Projectile.rotation = Rot;
-            if (player.direction == -1)
-            {
-                rad = deg * (Math.PI / -90);
-            }
-            else
-            {
-                rad = deg * (Math.PI / 90);
-            }
-            if (player.direction == 1)
-            {
-                Projectile.position.X = (player.Center.X - (int)(Math.Cos(rad) * dist) - Projectile.width / 2);
-                Projectile.position.Y = (player.Center.Y - (int)(Math.Sin(rad) * dist) - Projectile.height / 2);
-            }
-            else
-            {
-                Projectile.position.X = (player.Center.X + (int)(Math.Cos(rad) * dist) - Projectile.width / 2);
-                Projectile.position.Y = (player.Center.Y + (int)(Math.Sin(rad) * dist) - Projectile.height / 2);
-            }
+
+            rad = deg * (Math.PI / (90 * player.direction));
+
+            Projectile.position.X = (player.Center.X - ((int)(Math.Cos(rad) * dist) * player.direction) - Projectile.width / 2);
+            Projectile.position.Y = (player.Center.Y - ((int)(Math.Sin(rad) * dist) * player.direction) - Projectile.height / 2);
             Projectile.ai[1] += 1f;
+
+
             if (Projectile.owner == Main.myPlayer)
             {
                 bool stillInUse = player.channel && !player.noItems && !player.CCed;
@@ -152,8 +130,6 @@ namespace DnD.Items.Weapons.Swords
                 {
                     Player.CompositeArmStretchAmount stretch = default;
                     player.GetFrontHandPosition(stretch, 10f);
-                    UpdateAim(rrp, player.HeldItem.shootSpeed);
-                    Projectile.rotation = Rot;
                 }
                 else if (!stillInUse)
                 {
@@ -230,45 +206,24 @@ namespace DnD.Items.Weapons.Swords
             return false;
         }
 
-        private void UpdateAim(Vector2 source, float speed)
-        {
-            // Get the player's current aiming direction as a normalized vector.
-            Vector2 aim = Vector2.Normalize(Main.MouseWorld - source);
-            if (aim.HasNaNs())
-            {
-                aim = -Vector2.UnitY;
-            }
-
-        }
-
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
             Vector2 rrp = player.RotatedRelativePoint(player.MountedCenter, false);
             double deg = (double)Projectile.ai[1] * 5;
-            double rad = deg * (Math.PI / -90);
+            double rad = deg * (Math.PI / (-90 * player.direction));
             double dist = 300f;
-            float Rot = (player.Center - Projectile.Center).ToRotation() - 15.0625f;
+            float Rot = (player.Center - Projectile.Center).ToRotation() - MathHelper.ToRadians(75);
             Projectile.rotation = Rot;
-            if (player.direction == -1)
-            {
-                rad = deg * (Math.PI / -90);
-            }
-            else
-            {
-                rad = deg * (Math.PI / 90);
-            }
-            if (player.direction == 1)
-            {
-                Projectile.position.X = (player.Center.X - (int)(Math.Cos(rad) * dist) - Projectile.width / 2);
-                Projectile.position.Y = (player.Center.Y - (int)(Math.Sin(rad) * dist) - Projectile.height / 2);
-            }
-            else
-            {
-                Projectile.position.X = (player.Center.X + (int)(Math.Cos(rad) * dist) - Projectile.width / 2);
-                Projectile.position.Y = (player.Center.Y + (int)(Math.Sin(rad) * dist) - Projectile.height / 2);
-            }
+            Projectile.spriteDirection = player.direction;
+
+            rad = deg * (Math.PI / (90 * player.direction));
+
+            Projectile.position.X = (player.Center.X - ((int)(Math.Cos(rad) * dist) * player.direction) - Projectile.width / 2);
+            Projectile.position.Y = (player.Center.Y - ((int)(Math.Sin(rad) * dist) * player.direction) - Projectile.height / 2);
             Projectile.ai[1] += 1f;
+
+
 
             if (Projectile.owner == Main.myPlayer)
             {
@@ -277,8 +232,6 @@ namespace DnD.Items.Weapons.Swords
                 {
                     Player.CompositeArmStretchAmount stretch = default;
                     player.GetFrontHandPosition(stretch, 10f);
-                    UpdateAim(rrp, player.HeldItem.shootSpeed);
-                    Projectile.rotation = Rot;
                 }
                 else if (!stillInUse)
                 {
