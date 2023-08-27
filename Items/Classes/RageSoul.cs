@@ -19,10 +19,10 @@ namespace DnD.Items.Classes
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Rage Soul");
-            Tooltip.SetDefault("Increases melee damage by 15%" +
+            // DisplayName.SetDefault("Rage Soul");
+            /* Tooltip.SetDefault("Increases melee damage by 15%" +
                 "\nIncreases max health" +
-                "\nThe soul of a barbarians");
+                "\nThe soul of a barbarians"); */
 
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(5, 4));
             ItemID.Sets.AnimatesAsSoul[Item.type] = true;
@@ -151,8 +151,8 @@ namespace DnD.Items.Classes
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Rage");
-            Description.SetDefault("You fight with primal ferocity");
+            // DisplayName.SetDefault("Rage");
+            // Description.SetDefault("You fight with primal ferocity");
         }
 
         public override void Update(Player player, ref int buffIndex)
@@ -215,9 +215,9 @@ namespace DnD.Items.Classes
         }
 
         int dcCheck = 10;
-        public override void OnRespawn(Player player)
+        public override void OnRespawn()
         {
-            DnDPlayer pc = player.GetModPlayer<DnDPlayer>();
+            DnDPlayer pc = Player.GetModPlayer<DnDPlayer>();
             dcCheck = 10;
             if(pc.barbClass == true && pc.playerLevel >= 11)
             {

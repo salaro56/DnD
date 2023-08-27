@@ -1,5 +1,5 @@
 ﻿[i/s1:75] [c/51DA5F:What is DnD Terraria?]
-Dungeons of Terraria is an unofficial D&D inspired mod that is a faithful recreation of DnD into the world of Terraria.
+Dungeons and Dragons Terraria is an unofficial D&D inspired mod that is a faithful recreation of DnD into the world of Terraria.
 While the mod may not be the most powerful or in depth mod out there it adds a sense of familiarity from an all time favourite game of mine.
 To get started all you need is level 1, a book, and a mana crystal!
 

@@ -108,7 +108,7 @@ namespace DnD.NPCS.Friendly
 			return true;
 		}
 
-		public override void HitEffect(int hitDirection, double damage)
+		public override void HitEffect(NPC.HitInfo hit)
 		{
 			int num = NPC.life > 0 ? 1 : 5;
 
@@ -118,7 +118,7 @@ namespace DnD.NPCS.Friendly
 			}
 		}
 
-		public override bool CanTownNPCSpawn(int numTownNPCs, int money)
+		public override bool CanTownNPCSpawn(int numTownNPCs)/* tModPorter Suggestion: Copy the implementation of NPC.SpawnAllowed_Merchant in vanilla if you to count money, and be sure to set a flag when unlocked, so you don't count every tick. */
 		{ // Requirements for the town NPC to spawn.
 			for (int k = 0; k < 255; k++)
 			{
@@ -181,7 +181,7 @@ namespace DnD.NPCS.Friendly
 			button = "Help";
 		}
 
-		public override void OnChatButtonClicked(bool firstButton, ref bool shop)
+		public override void OnChatButtonClicked(bool firstButton, ref string shopName)
 		{
 			if (firstButton)
 			{

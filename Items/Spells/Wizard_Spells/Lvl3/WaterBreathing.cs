@@ -10,6 +10,7 @@ using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
 using Terraria.Localization;
 using System.IO;
+using DnD.Common;
 
 namespace DnD.Items.Spells.Wizard_Spells.Lvl3
 {
@@ -17,8 +18,8 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl3
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault(value: "[c/FF0000:Level 3:]" +
-                "\n Allows the user to breath water as if it were air");
+            /* Tooltip.SetDefault(value: "[c/FF0000:Level 3:]" +
+                "\n Allows the user to breath water as if it were air"); */
         }
 
         public override void SetDefaults()
@@ -62,8 +63,8 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl3
             CreateRecipe()
                  .AddIngredient(ModContent.ItemType<Items.ClassToken>())
                 .AddTile(ModContent.TileType<Furniture.PHBTile>())
-                .AddCondition(NetworkText.FromLiteral("Must be of level 3 or higher"), r => Main.LocalPlayer.GetModPlayer<DnDPlayer>().playerLevel >= 3)
-                .AddCondition(NetworkText.FromLiteral("Must be the right class"), r => Main.LocalPlayer.GetModPlayer<DnDPlayer>().wizardClass == true)
+                .AddCondition(Conditions.IsWizard)
+                .AddCondition(Conditions.IsRightLevel(5))
                 .Register();
         }
 

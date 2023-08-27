@@ -18,9 +18,9 @@ namespace DnD.Items.Pets
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Eternal Token");
-            Tooltip.SetDefault("My gratitude for those who support me is eternal" +
-                "\nOnly usable by patreon supporters!");
+            // DisplayName.SetDefault("Eternal Token");
+            /* Tooltip.SetDefault("My gratitude for those who support me is eternal" +
+                "\nOnly usable by patreon supporters!"); */
 
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
@@ -89,7 +89,7 @@ namespace DnD.Items.Pets
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Lucky Die");
+            // DisplayName.SetDefault("Lucky Die");
 
             Main.projPet[Projectile.type] = true;
         }
@@ -131,8 +131,8 @@ namespace DnD.Items.Pets
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Lucky D20");
-            Description.SetDefault("Roll true patrons");
+            // DisplayName.SetDefault("Lucky D20");
+            // Description.SetDefault("Roll true patrons");
 
             Main.buffNoTimeDisplay[Type] = true;
             Main.vanityPet[Type] = true;

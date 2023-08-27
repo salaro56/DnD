@@ -19,10 +19,10 @@ namespace DnD.Items.Classes
 
         public override void SetStaticDefaults()
         {
-			DisplayName.SetDefault("Rogue's Dagger");
-            Tooltip.SetDefault("10% Increased Melee damage" +
+			// DisplayName.SetDefault("Rogue's Dagger");
+            /* Tooltip.SetDefault("10% Increased Melee damage" +
                 "\n10% Increased Ranged damage" +
-                "\nRequired for Rogues");
+                "\nRequired for Rogues"); */
         }
 
         public override void SetDefaults()
@@ -140,8 +140,8 @@ namespace DnD.Items.Classes
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Sneak");
-			Description.SetDefault("You are hidden in the shadows");
+			// DisplayName.SetDefault("Sneak");
+			// Description.SetDefault("You are hidden in the shadows");
 		}
 
 		public override void Update(Player player, ref int buffIndex)
@@ -154,22 +154,22 @@ namespace DnD.Items.Classes
 
 	public class RogueUpdate : GlobalItem
     {
-        public override void ModifyHitNPC(Item item, Player player, NPC target, ref int damage, ref float knockBack, ref bool crit)
+        public override void ModifyHitNPC(Item item, Player player, NPC target, ref NPC.HitModifiers modifiers)
         {
             if(player.GetModPlayer<DnDPlayer>().isSneaking == true)
             {
-				damage += player.GetModPlayer<Rogue>().SneakAttackDamage(player.GetModPlayer<DnDPlayer>());
+				modifiers.FinalDamage += player.GetModPlayer<Rogue>().SneakAttackDamage(player.GetModPlayer<DnDPlayer>());
             }
         }
     }
 
 	public class RogueUpdate2 : GlobalProjectile
     {
-        public override void ModifyHitNPC(Projectile projectile, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        public override void ModifyHitNPC(Projectile projectile, NPC target, ref NPC.HitModifiers modifiers)
         {
 			if (Main.player[Main.myPlayer].GetModPlayer<DnDPlayer>().isSneaking == true)
 			{
-				damage += Main.player[Main.myPlayer].GetModPlayer<Rogue>().SneakAttackDamage(Main.player[Main.myPlayer].GetModPlayer<DnDPlayer>());
+				modifiers.FinalDamage += Main.player[Main.myPlayer].GetModPlayer<Rogue>().SneakAttackDamage(Main.player[Main.myPlayer].GetModPlayer<DnDPlayer>());
 			}
 		}
     }
@@ -279,22 +279,22 @@ namespace DnD.Items.Classes
 			Player.ClearBuff(ModContent.BuffType<SneakBuff>());
         }
 
-        public override void ModifyHitByNPC(NPC npc, ref int damage, ref bool crit)
+        public override void ModifyHitByNPC(NPC npc, ref Player.HurtModifiers modifiers)
         {
 			DnDPlayer pc = Player.GetModPlayer<DnDPlayer>();
 			if (pc.playerLevel >= 5 && pc.rogueClass == true && Main.rand.Next(1, 20) >= 16)
             {
-				damage *= (int)0.5f;
+				modifiers.FinalDamage *= (int)0.5f;
 				CombatText.NewText(Player.getRect(), new Color(100, 20, 20), "Dodged");
             }
         }
 
-        public override void ModifyHitByProjectile(Projectile proj, ref int damage, ref bool crit)
+        public override void ModifyHitByProjectile(Projectile proj, ref Player.HurtModifiers modifiers)
         {
 			DnDPlayer pc = Player.GetModPlayer<DnDPlayer>();
 			if (pc.playerLevel >= 5 && pc.rogueClass == true && Main.rand.Next(1, 20) >= 16)
 			{
-				damage *= (int)0.5f;
+				modifiers.FinalDamage *= (int)0.5f;
 				CombatText.NewText(Player.getRect(), new Color(100, 20, 20), "Dodged");
 			}
 		}

@@ -226,24 +226,24 @@ namespace DnD
 
         }
 
-        public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref NPC.HitModifiers modifiers)/* tModPorter If you don't need the Projectile, consider using ModifyHitNPC instead */
         {
-            ExAttackProj(ref damage, proj);
+            ExAttackProj(ref modifiers, proj);
         }
 
-        public override void ModifyHitNPC(Item item, NPC target, ref int damage, ref float knockback, ref bool crit)
+        public override void ModifyHitNPCWithItem(Item item, NPC target, ref NPC.HitModifiers modifiers)/* tModPorter If you don't need the Item, consider using ModifyHitNPC instead */
         {
-            EXAttackItem(ref damage, item);
+            EXAttackItem(ref modifiers, item);
         }
 
-        public void ExAttackProj(ref int damage, Projectile proj)
+        public void ExAttackProj(ref NPC.HitModifiers damage, Projectile proj)
         {
             DnDPlayer pc = Player.GetModPlayer<DnDPlayer>();
             for (int i = 0; i < ExtraAttack(); i++)
             {
                 if (pc.barbClass == true && Main.rand.Next(1, 20) + pc.ProfBonus() >= 17 && proj.DamageType != DamageClass.Magic && proj.DamageType != DamageClass.Summon || pc.rangerClass == true && Main.rand.Next(1, 20) + pc.ProfBonus() >= 17 && proj.DamageType != DamageClass.Magic && proj.DamageType != DamageClass.Summon)
                 {
-                    damage *= 2;
+                    damage.FinalDamage *= 2;
                     if (ModContent.GetInstance<Common.Configs.DnDConfigs>().ScreenShake == true)
                     {
                         roughScreenShakeTimer = 5f;
@@ -253,14 +253,14 @@ namespace DnD
             }
         }
 
-        public void EXAttackItem(ref int damage, Item item)
+        public void EXAttackItem(ref NPC.HitModifiers damage, Item item)
         {
             DnDPlayer pc = Player.GetModPlayer<DnDPlayer>();
             for (int i = 0; i < ExtraAttack(); i++)
             {
                 if (pc.barbClass == true && Main.rand.Next(1, 20) + pc.ProfBonus() >= 17 && item.DamageType != DamageClass.Magic && item.DamageType != DamageClass.Summon || pc.rangerClass == true && Main.rand.Next(1, 20) + pc.ProfBonus() >= 17 && item.DamageType != DamageClass.Magic && item.DamageType != DamageClass.Summon)
                 {
-                    damage *= 2;
+                    damage.FinalDamage *= 2;
                     if (ModContent.GetInstance<Common.Configs.DnDConfigs>().ScreenShake == true)
                     {
                         roughScreenShakeTimer = 5f;
@@ -293,9 +293,9 @@ namespace DnD
         }
 
 
-        public override void PlayerConnect(Player player)
+        public override void PlayerConnect()
         {
-            SyncLevelPacket.Write(player.whoAmI, playerLevel, true);
+            SyncLevelPacket.Write(Player.whoAmI, playerLevel, true);
         }
 
         public override void PostUpdate()
@@ -308,7 +308,7 @@ namespace DnD
             }
         }
 
-        public override void OnEnterWorld(Player player)
+        public override void OnEnterWorld()
         {
             DnD.PlayerEnteredWorld = true;
             Main.NewText("Your current level is " + playerLevel);

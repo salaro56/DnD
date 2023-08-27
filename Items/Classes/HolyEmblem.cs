@@ -14,10 +14,10 @@ namespace DnD.Items.Classes
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Holy Emblem");
-            Tooltip.SetDefault("Increases magic damage by 5%" +
+            // DisplayName.SetDefault("Holy Emblem");
+            /* Tooltip.SetDefault("Increases magic damage by 5%" +
                 "\nIncreases summon damage by 10%" +
-                "\nA focus for clerics");
+                "\nA focus for clerics"); */
         }
 
         public override void SetDefaults()

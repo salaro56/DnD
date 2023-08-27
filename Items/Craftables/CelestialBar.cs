@@ -13,8 +13,8 @@ namespace DnD.Items.Craftables
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Celestial Bar");
-            Tooltip.SetDefault("Stars shimmer in pearlescent metal");
+            // DisplayName.SetDefault("Celestial Bar");
+            // Tooltip.SetDefault("Stars shimmer in pearlescent metal");
         }
 
         public override void SetDefaults()

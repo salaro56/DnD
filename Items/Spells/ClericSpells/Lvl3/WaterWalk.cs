@@ -9,6 +9,7 @@ using Terraria.ID;
 using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
 using Terraria.Localization;
+using DnD.Common;
 
 namespace DnD.Items.Spells.ClericSpells.Lvl3
 {
@@ -16,8 +17,8 @@ namespace DnD.Items.Spells.ClericSpells.Lvl3
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault(value: "[c/FF0000:Level 3:]" +
-                "\n Allows willing creatures to walk across the surface of liquids as if it were solid ground");
+            /* Tooltip.SetDefault(value: "[c/FF0000:Level 3:]" +
+                "\n Allows willing creatures to walk across the surface of liquids as if it were solid ground"); */
         }
 
         public override void SetDefaults()
@@ -68,8 +69,8 @@ namespace DnD.Items.Spells.ClericSpells.Lvl3
             CreateRecipe()
                  .AddIngredient(ModContent.ItemType<Items.ClassToken>())
                 .AddTile(ModContent.TileType<Furniture.PHBTile>())
-                .AddCondition(NetworkText.FromLiteral("Must be of level 3 or higher"), r => Main.LocalPlayer.GetModPlayer<DnDPlayer>().playerLevel >= 3)
-                .AddCondition(NetworkText.FromLiteral("Must be the right class"), r => Main.LocalPlayer.GetModPlayer<DnDPlayer>().clericClass == true)
+                .AddCondition(Conditions.IsRightLevel(5))
+                .AddCondition(Conditions.IsCleric)
                 .Register();
         }
 

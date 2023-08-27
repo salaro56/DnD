@@ -14,6 +14,7 @@ using Terraria.DataStructures;
 using Microsoft.Xna.Framework.Graphics.PackedVector;
 using DnD.Rarities;
 using Terraria.Graphics;
+using DnD.Common;
 
 namespace DnD.Items.Spells.Wizard_Spells.Lvl3
 {
@@ -23,11 +24,11 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl3
         public int spellLevel;
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Fireball");
-            Tooltip.SetDefault(value: "[c/FF0000:Level 3:]" +
+            // DisplayName.SetDefault("Fireball");
+            /* Tooltip.SetDefault(value: "[c/FF0000:Level 3:]" +
                 "\nA bright streak flashes from your pointing finger to a point you choose within range and then blossoms with a low roar into an explosion of flame." +
                 "\nA target takes 8d6 x proficiency bonus fire damage" +
-                "\nWhen you cast this spell using a spell slot of 4th level or higher the damage increases by 1d6 for each level");
+                "\nWhen you cast this spell using a spell slot of 4th level or higher the damage increases by 1d6 for each level"); */
         }
 
         public override bool AltFunctionUse(Player player)
@@ -158,7 +159,7 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl3
 
             damage += sItem.DamageValue(minRoll: 1, maxRoll: 6, diceRolled: spellLevel + 5);
         }
-        public override void ModifyHitNPC(Player player, NPC target, ref int damage, ref float knockBack, ref bool crit)
+        public override void ModifyHitNPC(Player player, NPC target, ref NPC.HitModifiers modifiers)
         {
             target.defense *= 0;
         }
@@ -169,8 +170,8 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl3
                 .AddIngredient(ModContent.ItemType<Items.ClassToken>())
                 .AddIngredient(ModContent.ItemType<SpellComponents.Sulfur>())
                 .AddTile(ModContent.TileType<PHBTile>())
-                .AddCondition(NetworkText.FromLiteral("Must be of level 5 or higher"), r => Main.LocalPlayer.GetModPlayer<DnDPlayer>().playerLevel >= 5)
-                .AddCondition(NetworkText.FromLiteral("Must be the right class"), r => Main.LocalPlayer.GetModPlayer<DnDPlayer>().wizardClass == true)
+                .AddCondition(Conditions.IsWizard)
+                .AddCondition(Conditions.IsRightLevel(5))
                 .Register();
         }
 
@@ -337,7 +338,7 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl3
             Projectile.tileCollide = false;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             if (Main.rand.Next(1, 21) > 16)
             {

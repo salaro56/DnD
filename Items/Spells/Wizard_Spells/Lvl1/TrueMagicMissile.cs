@@ -18,6 +18,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria.GameContent;
 using DnD.Graphics;
 using Terraria.Graphics;
+using DnD.Common;
 
 namespace DnD.Items.Spells.Wizard_Spells.Lvl1
 {
@@ -27,12 +28,12 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl1
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("True Magic Missile");
-            Tooltip.SetDefault(value: "[c/FF0000:Level 1:]" +
+            // DisplayName.SetDefault("True Magic Missile");
+            /* Tooltip.SetDefault(value: "[c/FF0000:Level 1:]" +
                 "\nYou create three glowing darts of magical force. Each dart hits a creature that you can see within range" +
                 "\nA dart deals 1d4 + 1 multiplied by proficiency force damage to its target" +
                 "\nWhen you cast this spell using a spell slot of 2nd level or higher the number of darts increases by 1" +
-                "\nRight clicking while holding changes spell level");
+                "\nRight clicking while holding changes spell level"); */
 
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
@@ -207,7 +208,7 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl1
             damage += (Main.rand.Next(1, 5) + 1) * pc.ProfBonus();
         }
 
-        public override void ModifyHitNPC(Player player, NPC target, ref int damage, ref float knockBack, ref bool crit)
+        public override void ModifyHitNPC(Player player, NPC target, ref NPC.HitModifiers modifiers)
         {
             target.defense *= 0;
         }
@@ -233,8 +234,8 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl1
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<Items.ClassToken>())
                 .AddTile(ModContent.TileType<PHBTile>())
-                .AddCondition(NetworkText.FromLiteral("Must be of level 1 or higher"), r => Main.LocalPlayer.GetModPlayer<DnDPlayer>().playerLevel >= 1)
-                .AddCondition(NetworkText.FromLiteral("Must be the right class"), r => Main.LocalPlayer.GetModPlayer<DnDPlayer>().wizardClass == true)
+                .AddCondition(Conditions.IsWizard)
+                .AddCondition(Conditions.IsRightLevel(1))
                 .Register();
         }
     }

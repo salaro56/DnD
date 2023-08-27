@@ -11,6 +11,7 @@ using DnD.Graphics.Dusts;
 using Terraria.DataStructures;
 using DnD.Common.Structs;
 using Terraria.Localization;
+using DnD.Common;
 
 namespace DnD.Items.Spells.ClericSpells.Lvl3
 {
@@ -21,11 +22,11 @@ namespace DnD.Items.Spells.ClericSpells.Lvl3
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Spirit Guardians");
+            // DisplayName.SetDefault("Spirit Guardians");
 
-            Tooltip.SetDefault(value: "[c/FF0000:Level 3:]" +
+            /* Tooltip.SetDefault(value: "[c/FF0000:Level 3:]" +
             "\nYou call forth spirits to protect you" +
-            "\nDoes 3d8 radiant damage and an additional 1d8 for each level above 3rd");
+            "\nDoes 3d8 radiant damage and an additional 1d8 for each level above 3rd"); */
         }
 
         public override void SetDefaults()
@@ -205,8 +206,8 @@ namespace DnD.Items.Spells.ClericSpells.Lvl3
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<Items.ClassToken>())
                 .AddTile(ModContent.TileType<Furniture.PHBTile>())
-                .AddCondition(NetworkText.FromLiteral("Must be of level 5 or higher"), r => Main.LocalPlayer.GetModPlayer<DnDPlayer>().playerLevel >= 5)
-                .AddCondition(NetworkText.FromLiteral("Must be the right class"), r => Main.LocalPlayer.GetModPlayer<DnDPlayer>().clericClass == true)
+                .AddCondition(Conditions.IsRightLevel(5))
+                .AddCondition(Conditions.IsCleric)
                 .Register();
         }
     }
@@ -215,8 +216,8 @@ namespace DnD.Items.Spells.ClericSpells.Lvl3
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Spirit Guardian");
-            Description.SetDefault("You are protected by the spirits");
+            // DisplayName.SetDefault("Spirit Guardian");
+            // Description.SetDefault("You are protected by the spirits");
 
             Main.buffNoSave[Type] = true; // This buff won't save when you exit the world
         }
@@ -285,12 +286,12 @@ namespace DnD.Items.Spells.ClericSpells.Lvl3
             return false;
         }
 
-        public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
             CreatureArrays ca = new();
             if (ca.undeadNames.Any(target.FullName.Contains))
             {
-                damage *= 2;
+                modifiers.FinalDamage *= 2;
             }
         }
     }

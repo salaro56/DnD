@@ -14,9 +14,9 @@ namespace DnD.Items.Classes
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Ranger's Quiver");
-            Tooltip.SetDefault("Increases ranged damage by 15%" +
-                "\nA tool for rangers");
+            // DisplayName.SetDefault("Ranger's Quiver");
+            /* Tooltip.SetDefault("Increases ranged damage by 15%" +
+                "\nA tool for rangers"); */
         }
 
         public override void SetDefaults()

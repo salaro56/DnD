@@ -15,7 +15,7 @@ namespace DnD.NPCS.Hostile
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Will O' Wisp");
+            // DisplayName.SetDefault("Will O' Wisp");
             Main.npcFrameCount[NPC.type] = 5;
         }
 
@@ -107,7 +107,7 @@ namespace DnD.NPCS.Hostile
             }
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
             target.AddBuff(BuffID.Chilled, 600);
         }

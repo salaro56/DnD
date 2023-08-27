@@ -13,9 +13,9 @@ namespace DnD.Items.MagItem.Accessories
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Glow Ring");
-            Tooltip.SetDefault("[c/51DA5F:Uncommon Magic Item]" +
-                "\nThe wearer of the ring shines with a brilliant light");
+            // DisplayName.SetDefault("Glow Ring");
+            /* Tooltip.SetDefault("[c/51DA5F:Uncommon Magic Item]" +
+                "\nThe wearer of the ring shines with a brilliant light"); */
         }
 
         public override void SetDefaults()
@@ -55,9 +55,9 @@ namespace DnD.Items.MagItem.Accessories
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Small Glow Ring");
-            Tooltip.SetDefault("[c/51DA5F:Common Magic Item]" +
-                "\nThe wearer of the ring shines with a dim light");
+            // DisplayName.SetDefault("Small Glow Ring");
+            /* Tooltip.SetDefault("[c/51DA5F:Common Magic Item]" +
+                "\nThe wearer of the ring shines with a dim light"); */
         }
 
         public override void SetDefaults()

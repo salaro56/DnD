@@ -9,6 +9,7 @@ using Terraria.ID;
 using Microsoft.Xna.Framework;
 using Terraria.Localization;
 using Terraria.GameContent.Creative;
+using DnD.Common;
 
 namespace DnD.Items.Spells.Wizard_Spells.Lvl2
 {
@@ -16,9 +17,9 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl2
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Misty Step");
-            Tooltip.SetDefault(value: "[c/FF0000:Level 2:]" +
-                "\nEnvelopes yourself in silvery blue light as you teleport up to 30ft away");
+            // DisplayName.SetDefault("Misty Step");
+            /* Tooltip.SetDefault(value: "[c/FF0000:Level 2:]" +
+                "\nEnvelopes yourself in silvery blue light as you teleport up to 30ft away"); */
 
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
@@ -98,7 +99,7 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl2
                     return;
                 }
                 player.Teleport(position2, 1);
-                NetMessage.SendData(MessageID.Teleport, -1, -1, null, 0, player.whoAmI, position2.X, position2.Y, 1);
+                NetMessage.SendData(MessageID.TeleportEntity, -1, -1, null, 0, player.whoAmI, position2.X, position2.Y, 1);
             }
             else if (Vector2.Distance(position1, position2) > 400 && player.whoAmI == Main.myPlayer && player.statMana >= 30)
             {
@@ -114,7 +115,7 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl2
                     return;
                 }
                 player.Teleport(position3, 1);
-                NetMessage.SendData(MessageID.Teleport, -1, -1, null, 0, player.whoAmI, position3.X, position3.Y, 1);
+                NetMessage.SendData(MessageID.TeleportEntity, -1, -1, null, 0, player.whoAmI, position3.X, position3.Y, 1);
             }
         }
 
@@ -123,8 +124,8 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl2
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<Items.ClassToken>())
                 .AddTile(ModContent.TileType<Furniture.PHBTile>())
-                .AddCondition(NetworkText.FromLiteral("Must be of level 2 or higher"), r => Main.LocalPlayer.GetModPlayer<DnDPlayer>().playerLevel >= 2)
-                .AddCondition(NetworkText.FromLiteral("Must be the right class"), r => Main.LocalPlayer.GetModPlayer<DnDPlayer>().wizardClass == true)
+                .AddCondition(Conditions.IsWizard)
+                .AddCondition(Conditions.IsRightLevel(3))
                 .Register();
         }
     }

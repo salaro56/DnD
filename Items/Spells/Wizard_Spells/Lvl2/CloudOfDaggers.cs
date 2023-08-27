@@ -12,6 +12,7 @@ using Terraria.DataStructures;
 using DnD.Furniture;
 using Terraria.Localization;
 using Terraria.Audio;
+using DnD.Common;
 
 namespace DnD.Items.Spells.Wizard_Spells.Lvl2
 {
@@ -20,11 +21,11 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl2
         public int spellLevel = 2;
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Cloud of Daggers");
-            Tooltip.SetDefault(value: "[c/FF0000:Level 2:]" +
+            // DisplayName.SetDefault("Cloud of Daggers");
+            /* Tooltip.SetDefault(value: "[c/FF0000:Level 2:]" +
                 "\nYou fill the air with spinning daggers in a cube 5 feet on each side, centered on a point you choose within range." +
                 "\nA creature takes 4d4 multiplied by proficiency bonus, slashing damage when it enters the spell's area" +
-                "\nWhen you cast this spell using a spell level of 3rd or higher the damage increases by 2d4");
+                "\nWhen you cast this spell using a spell level of 3rd or higher the damage increases by 2d4"); */
         }
 
         public override void SetDefaults()
@@ -166,7 +167,7 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl2
             return false;
         }
 
-        public override void ModifyHitNPC(Player player, NPC target, ref int damage, ref float knockBack, ref bool crit)
+        public override void ModifyHitNPC(Player player, NPC target, ref NPC.HitModifiers modifiers)
         {
             target.defense *= 0;
         }
@@ -177,8 +178,8 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl2
                 .AddIngredient(ModContent.ItemType<Items.ClassToken>())
                 .AddIngredient(ItemID.Glass, 10)
                 .AddTile(ModContent.TileType<PHBTile>())
-                .AddCondition(NetworkText.FromLiteral("Must be of level 3 or higher"), r => Main.LocalPlayer.GetModPlayer<DnDPlayer>().playerLevel >= 3)
-                .AddCondition(NetworkText.FromLiteral("Must be the right class"), r => Main.LocalPlayer.GetModPlayer<DnDPlayer>().wizardClass == true)
+                .AddCondition(Conditions.IsWizard)
+                .AddCondition(Conditions.IsRightLevel(3))
                 .Register();
         }
     }

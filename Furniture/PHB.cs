@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Terraria.ID;
 using Terraria.GameContent.Creative;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria;
 using Terraria.ObjectData;
@@ -18,8 +19,8 @@ namespace DnD.Furniture
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Player's Handbook");
-            Tooltip.SetDefault("An incredibly powerful book with the tools to develop your character");
+            // DisplayName.SetDefault("Player's Handbook");
+            // Tooltip.SetDefault("An incredibly powerful book with the tools to develop your character");
 
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
@@ -72,8 +73,8 @@ namespace DnD.Furniture
                 AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTable);
 
                 // Etc
-                ModTranslation name = CreateMapEntryName();
-                name.SetDefault("Player's Handbook");
+                LocalizedText name = CreateMapEntryName();
+                // name.SetDefault("Player's Handbook");
                 AddMapEntry(new Color(200, 200, 200), name);
             }
 

@@ -1,4 +1,5 @@
-﻿using DnD.Furniture;
+﻿using DnD.Common;
+using DnD.Furniture;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -17,8 +18,8 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl4
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault(value: "[c/FF0000:Level 4:]" +
-                "\nThis spell turns your flesh as hard as stone. Until the spell ends you have resistance to nonmagical bludgeoning, piercing, and slashing damage");
+            /* Tooltip.SetDefault(value: "[c/FF0000:Level 4:]" +
+                "\nThis spell turns your flesh as hard as stone. Until the spell ends you have resistance to nonmagical bludgeoning, piercing, and slashing damage"); */
 
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
@@ -63,8 +64,8 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl4
                 .AddTile(ModContent.TileType<MMTile>())
                 .AddIngredient(ItemID.Diamond)
                 .AddIngredient(ModContent.ItemType<Items.ClassToken>())
-                .AddCondition(NetworkText.FromLiteral("Must be of level 7 or higher"), r => Main.LocalPlayer.GetModPlayer<DnDPlayer>().playerLevel >= 7)
-                .AddCondition(NetworkText.FromLiteral("Must be the right class"), r => Main.LocalPlayer.GetModPlayer<DnDPlayer>().wizardClass == true)
+                .AddCondition(Conditions.IsWizard)
+                .AddCondition(Conditions.IsRightLevel(7))
                 .Register();
         }
     }
@@ -73,8 +74,8 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl4
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Stoneskin");
-            Description.SetDefault("Your flesh is as hard as stone, you have resistance to all damage");
+            // DisplayName.SetDefault("Stoneskin");
+            // Description.SetDefault("Your flesh is as hard as stone, you have resistance to all damage");
         }
 
         public override void Update(Player player, ref int buffIndex)

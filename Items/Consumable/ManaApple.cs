@@ -7,19 +7,12 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
+using Terraria.Localization;
 
 namespace DnD.Items.Consumable
 {
     internal class ManaApple : ModItem
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Mana Apple");
-            Tooltip.SetDefault("Activates the spellslot system\n" +
-                "This means that your mana regeneration will be turned off\n" +
-                "This is designed to make your playthrough feel more like proper D&D");
-        }
-
         public override void SetDefaults()
         {
             Item.width = 32;

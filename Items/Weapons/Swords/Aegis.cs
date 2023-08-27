@@ -19,8 +19,8 @@ namespace DnD.Items.Weapons.Swords
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Aegis Sword");
-            Tooltip.SetDefault("A weapon of celestial origin");
+            // DisplayName.SetDefault("Aegis Sword");
+            // Tooltip.SetDefault("A weapon of celestial origin");
         }
 
         public override void SetDefaults()
@@ -155,7 +155,7 @@ namespace DnD.Items.Weapons.Swords
             }
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             ParticleOrchestraSettings particleOrchestraSettings = default(ParticleOrchestraSettings);
             particleOrchestraSettings.PositionInWorld = target.Center;

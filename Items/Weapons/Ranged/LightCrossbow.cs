@@ -14,7 +14,7 @@ namespace DnD.Items.Weapons.Ranged
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Light Crossbow");
+            // DisplayName.SetDefault("Light Crossbow");
         }
 
         public override void SetDefaults()

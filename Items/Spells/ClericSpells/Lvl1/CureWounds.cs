@@ -10,6 +10,7 @@ using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
 using Terraria.Localization;
 using Terraria.GameContent.Creative;
+using DnD.Common;
 
 namespace DnD.Items.Spells.ClericSpells.Lvl1
 {
@@ -18,10 +19,10 @@ namespace DnD.Items.Spells.ClericSpells.Lvl1
         public int spellLevel = 1;
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault(value: "[c/FF0000:Level 1:]" +
+            /* Tooltip.SetDefault(value: "[c/FF0000:Level 1:]" +
                 "\n A creature you touch regains a number of hit points equal to 1d8 + your Proficiency bonus" +
                 "\nWhen you cast this spell at higher levels, the healing increases by 1d8 per spell slot above 1st" +
-                "\nRight clicking while holding changes spell level");
+                "\nRight clicking while holding changes spell level"); */
 
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
@@ -290,8 +291,8 @@ namespace DnD.Items.Spells.ClericSpells.Lvl1
         {
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<ClassToken>())
-                .AddCondition(NetworkText.FromLiteral("Must be of level 1 or higher"), r => Main.LocalPlayer.GetModPlayer<DnDPlayer>().playerLevel >= 1)
-                .AddCondition(NetworkText.FromLiteral("Must be of the Cleric Class"), r => Main.LocalPlayer.GetModPlayer<DnDPlayer>().clericClass == true)
+                .AddCondition(Conditions.IsRightLevel(1))
+                .AddCondition(Conditions.IsCleric)
                 .AddTile(ModContent.TileType<Furniture.PHBTile>())
                 .Register();
         }

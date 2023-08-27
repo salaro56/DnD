@@ -13,6 +13,7 @@ using Terraria.Localization;
 using DnD.Common.Structs;
 using Microsoft.Xna.Framework;
 using Terraria.DataStructures;
+using DnD.Common;
 
 namespace DnD.Items.Spells.ClericSpells.Cantrips
 {
@@ -20,9 +21,9 @@ namespace DnD.Items.Spells.ClericSpells.Cantrips
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault(value: "[c/FF0000:Cantrip:]" +
+            /* Tooltip.SetDefault(value: "[c/FF0000:Cantrip:]" +
                 "\nDoes 1d8 x proficiency bonus radiant damage" +
-                "\nFlame like radiance descends on a creature that you can see");
+                "\nFlame like radiance descends on a creature that you can see"); */
 
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
@@ -161,8 +162,8 @@ namespace DnD.Items.Spells.ClericSpells.Cantrips
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<Items.ClassToken>())
                 .AddTile(ModContent.TileType<PHBTile>())
-                .AddCondition(NetworkText.FromLiteral("Must be of level 1 or higher"), r => Main.LocalPlayer.GetModPlayer<DnDPlayer>().playerLevel >= 1)
-                .AddCondition(NetworkText.FromLiteral("Must be the right class"), r => Main.LocalPlayer.GetModPlayer<DnDPlayer>().clericClass == true)
+                .AddCondition(Conditions.IsRightLevel(1))
+                .AddCondition(Conditions.IsCleric)
                 .Register();
         }
     }
@@ -234,12 +235,12 @@ namespace DnD.Items.Spells.ClericSpells.Cantrips
             }
         }
 
-        public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
             CreatureArrays ca = new();
             if (ca.undeadNames.Any(target.FullName.Contains))
             {
-                damage *= 2;
+                modifiers.FinalDamage *= 2;
             }
         }
     }

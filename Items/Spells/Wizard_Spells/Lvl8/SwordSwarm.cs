@@ -22,9 +22,9 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl8
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Sword Dance");
-            Tooltip.SetDefault("[c/FF0000:Level 8:]" +
-                "Call upon the might of the Empress");
+            // DisplayName.SetDefault("Sword Dance");
+            /* Tooltip.SetDefault("[c/FF0000:Level 8:]" +
+                "Call upon the might of the Empress"); */
         }
 
         public override void SetDefaults()

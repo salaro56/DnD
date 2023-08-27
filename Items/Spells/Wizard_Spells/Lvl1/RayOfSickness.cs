@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework;
 using Terraria.Localization;
 using DnD.Furniture;
 using Terraria.GameContent.Creative;
+using DnD.Common;
 
 namespace DnD.Items.Spells.Wizard_Spells.Lvl1
 {
@@ -19,12 +20,12 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl1
         public int spellLevel = 1;
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Ray of Sickness");
-            Tooltip.SetDefault(value: "[c/FF0000:Level 1:]" +
+            // DisplayName.SetDefault("Ray of Sickness");
+            /* Tooltip.SetDefault(value: "[c/FF0000:Level 1:]" +
                 "\nDoes 2d8 poison damage + 1d8 for each level above 1st multiplied by proficiency bonus" +
                 "\nA ray of sickening greenish energy lashes out toward a creature within range" +
                 "\nOn a failed save the target is also poisoned for 3 seconds" +
-                "\nRight clicking while holding changes spell level");
+                "\nRight clicking while holding changes spell level"); */
 
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
@@ -166,7 +167,7 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl1
             damage += sItem.DamageValue(minRoll: 1, maxRoll: 8, diceRolled: spellLevel + 1);
         }
 
-        public override void ModifyHitNPC(Player player, NPC target, ref int damage, ref float knockBack, ref bool crit)
+        public override void ModifyHitNPC(Player player, NPC target, ref NPC.HitModifiers modifiers)
         {
             target.defense *= 0;
         }
@@ -176,8 +177,8 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl1
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<Items.ClassToken>())
                 .AddTile(ModContent.TileType<PHBTile>())
-                .AddCondition(NetworkText.FromLiteral("Must be of level 1 or higher"), r => Main.LocalPlayer.GetModPlayer<DnDPlayer>().playerLevel >= 1)
-                .AddCondition(NetworkText.FromLiteral("Must be the right class"), r => Main.LocalPlayer.GetModPlayer<DnDPlayer>().wizardClass == true)
+                .AddCondition(Conditions.IsWizard)
+                .AddCondition(Conditions.IsRightLevel(1))
                 .Register();
         }
 
@@ -226,7 +227,7 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl1
                 Projectile.netUpdate = true;
             }
 
-            public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+            public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
             {
                 if (Main.rand.Next(1, 21) < 16)
                 {

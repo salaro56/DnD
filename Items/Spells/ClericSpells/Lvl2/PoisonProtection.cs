@@ -9,6 +9,7 @@ using Terraria.ID;
 using Terraria.Localization;
 using Microsoft.Xna.Framework;
 using Terraria.DataStructures;
+using DnD.Common;
 
 namespace DnD.Items.Spells.ClericSpells.Lvl2
 {
@@ -16,10 +17,10 @@ namespace DnD.Items.Spells.ClericSpells.Lvl2
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Protection from Poison");
-            Tooltip.SetDefault("[c/FF0000:Level 2:]" +
+            // DisplayName.SetDefault("Protection from Poison");
+            /* Tooltip.SetDefault("[c/FF0000:Level 2:]" +
                 "\nYou touch a creature and neutralize poison" +
-                "\nFor the duration of the spell they are also immune to future poisons");
+                "\nFor the duration of the spell they are also immune to future poisons"); */
         }
 
         public override void SetDefaults()
@@ -91,8 +92,8 @@ namespace DnD.Items.Spells.ClericSpells.Lvl2
                 .AddTile(ModContent.TileType<Furniture.MMTile>())
                 .AddIngredient(ItemID.JungleSpores, 4)
                 .AddIngredient(ModContent.ItemType<Items.ClassToken>())
-                .AddCondition(NetworkText.FromLiteral("Must be of level 3 or higher"), r => Main.LocalPlayer.GetModPlayer<DnDPlayer>().playerLevel >= 3)
-                .AddCondition(NetworkText.FromLiteral("Must be the right class"), r => Main.LocalPlayer.GetModPlayer<DnDPlayer>().clericClass == true)
+                .AddCondition(Conditions.IsRightLevel(3))
+                .AddCondition(Conditions.IsCleric)
                 .Register();
         }
     }
@@ -101,8 +102,8 @@ namespace DnD.Items.Spells.ClericSpells.Lvl2
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Protection from Poison");
-            Description.SetDefault("You are immune to the poison debuff");
+            // DisplayName.SetDefault("Protection from Poison");
+            // Description.SetDefault("You are immune to the poison debuff");
         }
 
         public override void Update(Player player, ref int buffIndex)

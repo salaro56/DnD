@@ -10,9 +10,9 @@ namespace DnD.Items.Weapons.Rogue
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Night's Blade");
-            Tooltip.SetDefault("Shrouded in shadows" +
-                "\nWhen in rogue stealth allows you to misty step");
+            // DisplayName.SetDefault("Night's Blade");
+            /* Tooltip.SetDefault("Shrouded in shadows" +
+                "\nWhen in rogue stealth allows you to misty step"); */
         }
 
         public override void SetDefaults()
@@ -120,7 +120,7 @@ namespace DnD.Items.Weapons.Rogue
                     return;
                 }
                 player.Teleport(position2, 1);
-                NetMessage.SendData(MessageID.Teleport, -1, -1, null, 0, player.whoAmI, position2.X, position2.Y, 1);
+                NetMessage.SendData(MessageID.TeleportEntity, -1, -1, null, 0, player.whoAmI, position2.X, position2.Y, 1);
                 pc.MysticSteps--;
                 CombatText.NewText(player.getRect(), new Color(200, 200, 200), $"Teleports Left: {pc.MysticSteps}");
             }
@@ -138,7 +138,7 @@ namespace DnD.Items.Weapons.Rogue
                     return;
                 }
                 player.Teleport(position3, 1);
-                NetMessage.SendData(MessageID.Teleport, -1, -1, null, 0, player.whoAmI, position3.X, position3.Y, 1);
+                NetMessage.SendData(MessageID.TeleportEntity, -1, -1, null, 0, player.whoAmI, position3.X, position3.Y, 1);
                 pc.MysticSteps--;
                 CombatText.NewText(player.getRect(), new Color(200, 200, 200), $"Teleports Left: {pc.MysticSteps}");
             }
@@ -180,7 +180,7 @@ namespace DnD.Items.Weapons.Rogue
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Night Blade");
+            // DisplayName.SetDefault("Night Blade");
         }
 
         public override void SetDefaults()

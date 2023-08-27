@@ -9,6 +9,7 @@ using Terraria.ID;
 using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
 using Terraria.Localization;
+using DnD.Common;
 
 namespace DnD.Items.Spells.Wizard_Spells.Lvl1
 {
@@ -16,8 +17,8 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl1
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault(value: "[c/FF0000:Level 1:]" +
-                "\n Provides slowfall for the duration of the spell");
+            /* Tooltip.SetDefault(value: "[c/FF0000:Level 1:]" +
+                "\n Provides slowfall for the duration of the spell"); */
         }
 
         public override void SetDefaults()
@@ -61,8 +62,8 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl1
             CreateRecipe()
                  .AddIngredient(ModContent.ItemType<Items.ClassToken>())
                 .AddTile(ModContent.TileType<Furniture.PHBTile>())
-                .AddCondition(NetworkText.FromLiteral("Must be of level 1 or higher"), r => Main.LocalPlayer.GetModPlayer<DnDPlayer>().playerLevel >= 1)
-                .AddCondition(NetworkText.FromLiteral("Must be the right class"), r => Main.LocalPlayer.GetModPlayer<DnDPlayer>().wizardClass == true || Main.LocalPlayer.GetModPlayer<DnDPlayer>().sorcClass == true)
+                .AddCondition(Conditions.IsWizard)
+                .AddCondition(Conditions.IsRightLevel(1))
                 .Register();
         }
 

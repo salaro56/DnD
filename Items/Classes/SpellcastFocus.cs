@@ -15,9 +15,9 @@ namespace DnD.Items.Classes
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Spellcasting Focus");
-            Tooltip.SetDefault("Increases magic damage by 15%" +
-                "\nA required tool for all wizards");
+            // DisplayName.SetDefault("Spellcasting Focus");
+            /* Tooltip.SetDefault("Increases magic damage by 15%" +
+                "\nA required tool for all wizards"); */
         }
 
         public override void SetDefaults()

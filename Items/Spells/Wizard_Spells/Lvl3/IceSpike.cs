@@ -23,10 +23,10 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl3
 
 		public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Ice Spikes");
-            Tooltip.SetDefault("[c/FF0000:Level 3:]" +
+            // DisplayName.SetDefault("Ice Spikes");
+            /* Tooltip.SetDefault("[c/FF0000:Level 3:]" +
                 "\nSpikes of ice sprout from the ground impailing your enemies" +
-                "\nDoes 4d8 damage and increases by 1d8 for each level above 3rd");
+                "\nDoes 4d8 damage and increases by 1d8 for each level above 3rd"); */
         }
 
 		public override bool AltFunctionUse(Player player)
@@ -353,7 +353,7 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl3
 			return false;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
 			if(Projectile.penetrate == 1)
             {

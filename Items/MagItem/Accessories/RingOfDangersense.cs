@@ -13,9 +13,9 @@ namespace DnD.Items.MagItem.Accessories
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Ring of Dangersense");
-            Tooltip.SetDefault("[c/51DA5F:Common Magic Item]" +
-                "\nThe wearer of the ring is magically aware of all dangers around them");
+            // DisplayName.SetDefault("Ring of Dangersense");
+            /* Tooltip.SetDefault("[c/51DA5F:Common Magic Item]" +
+                "\nThe wearer of the ring is magically aware of all dangers around them"); */
         }
 
         public override void SetDefaults()

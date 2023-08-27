@@ -21,8 +21,8 @@ namespace DnD.Items.Weapons.Swords
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Rainbow Breaker");
-            Tooltip.SetDefault("Crush light itself");
+            // DisplayName.SetDefault("Rainbow Breaker");
+            // Tooltip.SetDefault("Crush light itself");
         }
 
         public override void SetDefaults()
@@ -77,7 +77,7 @@ namespace DnD.Items.Weapons.Swords
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Rainbow Breaker");
+            // DisplayName.SetDefault("Rainbow Breaker");
         }
         public override void SetDefaults()
         {
@@ -177,7 +177,7 @@ namespace DnD.Items.Weapons.Swords
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Rainbow Breaker");
+            // DisplayName.SetDefault("Rainbow Breaker");
         }
         public override void SetDefaults()
         {

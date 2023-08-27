@@ -10,6 +10,7 @@ using DnD.Furniture;
 using Terraria.Localization;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using DnD.Common;
 
 namespace DnD.Items.Spells.Wizard_Spells.Lvl1
 {
@@ -18,11 +19,11 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl1
         public int spellLevel = 1;
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Adaine's Furious Fist");
-            Tooltip.SetDefault(value: "[c/FF0000:Level 1:]" +
+            // DisplayName.SetDefault("Adaine's Furious Fist");
+            /* Tooltip.SetDefault(value: "[c/FF0000:Level 1:]" +
                 "\nYour fist gleams with a silvery arcane light" +
                 "\nOn a failed save the target is also knocked back 5 feet" +
-                "\nRight clicking while holding changes spell level");
+                "\nRight clicking while holding changes spell level"); */
         }
 
         public override bool AltFunctionUse(Player player)
@@ -170,7 +171,7 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl1
 
             damage += sItem.DamageValue( minRoll: 1, maxRoll: 10, diceRolled: spellLevel * 2); 
         }
-        public override void ModifyHitNPC(Player player, NPC target, ref int damage, ref float knockBack, ref bool crit)
+        public override void ModifyHitNPC(Player player, NPC target, ref NPC.HitModifiers modifiers)
         {
             target.defense *= 0;
         }
@@ -180,8 +181,8 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl1
             CreateRecipe()
                  .AddIngredient(ModContent.ItemType<Items.ClassToken>())
                 .AddTile(ModContent.TileType<PHBTile>())
-                .AddCondition(NetworkText.FromLiteral("Must be of level 1 or higher"), r => Main.LocalPlayer.GetModPlayer<DnDPlayer>().playerLevel >= 1)
-                .AddCondition(NetworkText.FromLiteral("Must be the right class"), r => Main.LocalPlayer.GetModPlayer<DnDPlayer>().wizardClass == true || Main.LocalPlayer.GetModPlayer<DnDPlayer>().sorcClass == true)
+                .AddCondition(Conditions.IsWizard)
+                .AddCondition(Conditions.IsRightLevel(1))
                 .Register();
         }
     }

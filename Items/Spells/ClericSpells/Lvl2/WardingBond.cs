@@ -1,4 +1,5 @@
-﻿using DnD.Packets;
+﻿using DnD.Common;
+using DnD.Packets;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -19,9 +20,9 @@ namespace DnD.Items.Spells.ClericSpells.Lvl2
         public int spellLevel = 1;
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault(value: "[c/FF0000:Level 2:]" +
+            /* Tooltip.SetDefault(value: "[c/FF0000:Level 2:]" +
                 "\nCreate a bond on one creature you can touch that you share a team with" +
-                "\nUntil the spell ends the creature has resistance to all damage and you take the same amount of damage they take");
+                "\nUntil the spell ends the creature has resistance to all damage and you take the same amount of damage they take"); */
 
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
@@ -89,8 +90,8 @@ namespace DnD.Items.Spells.ClericSpells.Lvl2
         {
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<ClassToken>())
-                .AddCondition(NetworkText.FromLiteral("Must be of level 2 or higher"), r => Main.LocalPlayer.GetModPlayer<DnDPlayer>().playerLevel >= 1)
-                .AddCondition(NetworkText.FromLiteral("Must be of the Cleric Class"), r => Main.LocalPlayer.GetModPlayer<DnDPlayer>().clericClass == true)
+                .AddCondition(Conditions.IsRightLevel(3))
+                .AddCondition(Conditions.IsCleric)
                 .AddTile(ModContent.TileType<Furniture.PHBTile>())
                 .Register();
         }
@@ -105,8 +106,8 @@ namespace DnD.Items.Spells.ClericSpells.Lvl2
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Warding Bond");
-            Description.SetDefault("You are protected by a warding bond");
+            // DisplayName.SetDefault("Warding Bond");
+            // Description.SetDefault("You are protected by a warding bond");
         } 
 
         public override void Update(Player player, ref int buffIndex)

@@ -16,10 +16,10 @@ namespace DnD.Items.Weapons.Swords
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Berzerker's Axe");
-            Tooltip.SetDefault("Your blood boils just by holding this" +
+            // DisplayName.SetDefault("Berzerker's Axe");
+            /* Tooltip.SetDefault("Your blood boils just by holding this" +
                 "\nDoes 5d12 damage" +
-                "\nIngnites body when enraged");
+                "\nIngnites body when enraged"); */
         }
 
         public override void SetDefaults()

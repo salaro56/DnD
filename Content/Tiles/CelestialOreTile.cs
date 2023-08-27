@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
@@ -25,12 +26,12 @@ namespace DnD.Content.Tiles
 			Main.tileSolid[Type] = true;
 			Main.tileBlockLight[Type] = true;
 
-			ModTranslation name = CreateMapEntryName();
-			name.SetDefault("CelestialOre");
+			LocalizedText name = CreateMapEntryName();
+			// name.SetDefault("CelestialOre");
 			AddMapEntry(new Color(152, 30, 152), name);
 
 			DustType = DustID.PurpleCrystalShard;
-			ItemDrop = ModContent.ItemType<Items.Ore.CelestialOre>();
+			//ItemDrop/* tModPorter Note: Removed. Tiles and walls will drop the item which places them automatically. Use RegisterItemDrop to alter the automatic drop if necessary. */ = ModContent.ItemType<Items.Ore.CelestialOre>();
 			HitSound = SoundID.Tink;
 			MineResist = 2f;
 			MinPick = 100;
@@ -39,7 +40,7 @@ namespace DnD.Content.Tiles
 
 	public class CelestialOreSystem : ModSystem
 	{
-		public override void ModifyWorldGenTasks(List<GenPass> tasks, ref float totalWeight)
+		public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight)
 		{
 			// Because world generation is like layering several images ontop of each other, we need to do some steps between the original world generation steps.
 
@@ -70,7 +71,7 @@ namespace DnD.Content.Tiles
 			{
 				int x = WorldGen.genRand.Next(0, Main.maxTilesX);
 
-				int y = WorldGen.genRand.Next(0, (int)WorldGen.worldSurfaceLow);
+				int y = WorldGen.genRand.Next(0, (int)GenVars.worldSurfaceLow);
 
 				Tile tile = Framing.GetTileSafely(x, y);
 				if (tile.HasTile && tile.TileType == TileID.Cloud)

@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework;
 using Terraria.DataStructures;
 using Terraria.Graphics;
 using Terraria.Localization;
+using DnD.Common;
 
 namespace DnD.Items.Spells.Wizard_Spells.Lvl9
 {
@@ -17,9 +18,9 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl9
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Chromatic Dragon");
-            Tooltip.SetDefault(value: "[c/FF0000:Level 9:]" +
-            "\nCommand a mighty dragon spirit to maul your foes");
+            // DisplayName.SetDefault("Chromatic Dragon");
+            /* Tooltip.SetDefault(value: "[c/FF0000:Level 9:]" +
+            "\nCommand a mighty dragon spirit to maul your foes"); */
             ItemID.Sets.ItemIconPulse[Item.type] = true;
         }
 
@@ -81,8 +82,8 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl9
                 .AddIngredient(ItemID.FlaskofFire)
                 .AddIngredient(ItemID.SoulofMight, 5)
                 .AddIngredient(ModContent.ItemType<Items.ClassToken>())
-                .AddCondition(NetworkText.FromLiteral("Must be of level 17 or higher"), r => Main.LocalPlayer.GetModPlayer<DnDPlayer>().playerLevel >= 17)
-                .AddCondition(NetworkText.FromLiteral("Must be the right class"), r => Main.LocalPlayer.GetModPlayer<DnDPlayer>().wizardClass == true)
+                .AddCondition(Conditions.IsWizard)
+                .AddCondition(Conditions.IsRightLevel(17))
                 .Register();
         }
     }
@@ -97,7 +98,7 @@ namespace DnD.Items.Spells.Wizard_Spells.Lvl9
 
         public int[] parts = { ModContent.ProjectileType<Drag1>(), ModContent.ProjectileType<Drag2>(), ModContent.ProjectileType<Drag3>(), ModContent.ProjectileType<Drag3>(), ModContent.ProjectileType<Drag4>() };
 
-        public override void SetStaticDefaults() => DisplayName.SetDefault("Chromatic Dragon");
+        // public override void SetStaticDefaults() => DisplayName.SetDefault("Chromatic Dragon");
 
         public override void SetDefaults()
         {

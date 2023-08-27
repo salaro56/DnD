@@ -10,15 +10,10 @@ namespace DnD.Common.Structs
     {
         public string[] patreonNames =
         {
-            "Zachary Zahradka",
-            "2_Z_Zach",
             "RockmanSolid", 
             "Salaro", 
             "Test Dummy", 
-            "Phebe", 
-            "Jeo", 
             "Nyx",
-            "Wryneck"
         };
     }
 }

@@ -12,6 +12,7 @@ using DnD.Furniture;
 using Terraria.Localization;
 using Terraria.GameContent.Creative;
 using DnD.Rarities;
+using DnD.Common;
 
 namespace DnD.Items.Spells.Wizard_Spells.Cantrips
 {
@@ -19,11 +20,11 @@ namespace DnD.Items.Spells.Wizard_Spells.Cantrips
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Ray of Frost");
-            Tooltip.SetDefault(value: "[c/FF0000:Cantrip:]" +
+            // DisplayName.SetDefault("Ray of Frost");
+            /* Tooltip.SetDefault(value: "[c/FF0000:Cantrip:]" +
                 "\nDoes 1d8 x proficiency bonus cold damage" +
                 "\nA frigid beam of blue-white light streaks toward a creature within range." +
-                "\nDoes an additional d8 at level 5, 11, and 17");
+                "\nDoes an additional d8 at level 5, 11, and 17"); */
 
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
@@ -103,8 +104,8 @@ namespace DnD.Items.Spells.Wizard_Spells.Cantrips
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<Items.ClassToken>())
                 .AddTile(ModContent.TileType<PHBTile>())
-                .AddCondition(NetworkText.FromLiteral("Must be of level 1 or higher"), r => Main.LocalPlayer.GetModPlayer<DnDPlayer>().playerLevel >= 1)
-                .AddCondition(NetworkText.FromLiteral("Must be the right class"), r => Main.LocalPlayer.GetModPlayer<DnDPlayer>().wizardClass == true)
+                .AddCondition(Conditions.IsWizard)
+                .AddCondition(Conditions.IsRightLevel(1))
                 .Register();
         }
     }
@@ -161,7 +162,7 @@ namespace DnD.Items.Spells.Wizard_Spells.Cantrips
             Projectile.netUpdate = true;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(BuffID.Wet, 120);
             target.AddBuff(BuffID.Slow, 180);

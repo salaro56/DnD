@@ -15,6 +15,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System.Collections.ObjectModel;
 using Terraria.Localization;
 using DnD.Common.Structs;
+using DnD.Common;
 
 namespace DnD.Items.Spells.ClericSpells.Feats
 {
@@ -23,8 +24,8 @@ namespace DnD.Items.Spells.ClericSpells.Feats
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Turn Undead");
-            Tooltip.SetDefault(value: "[c/FF0000:Channel Divinity:]");
+            // DisplayName.SetDefault("Turn Undead");
+            // Tooltip.SetDefault(value: "[c/FF0000:Channel Divinity:]");
         }
 
         public override void SetDefaults()
@@ -84,8 +85,8 @@ namespace DnD.Items.Spells.ClericSpells.Feats
         {
             CreateRecipe()
                 .AddTile(ModContent.TileType<Furniture.PHBTile>())
-                .AddCondition(NetworkText.FromLiteral("Must be of level 2 or higher"), r => Main.LocalPlayer.GetModPlayer<DnDPlayer>().playerLevel >= 2)
-                .AddCondition(NetworkText.FromLiteral("Must be the right class"), r => Main.LocalPlayer.GetModPlayer<DnDPlayer>().clericClass == true)
+                .AddCondition(Conditions.IsRightLevel(2))
+                .AddCondition(Conditions.IsCleric)
                 .Register();
         }
     }
@@ -178,7 +179,7 @@ namespace DnD.Items.Spells.ClericSpells.Feats
 
         CreatureArrays ca = new();
 
-        public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
             DnDPlayer pc = Main.LocalPlayer.GetModPlayer<DnDPlayer>();
             int spellSave = 10 + pc.ProfBonus();
@@ -196,13 +197,13 @@ namespace DnD.Items.Spells.ClericSpells.Feats
                 {
                     if (Main.rand.Next(1, 20) <= spellSave)
                     {
-                        damage += 9999;
+                        modifiers.FinalDamage += 9999;
                     }
                 }
             }
             else
             {
-                damage *= 0;
+                modifiers.FinalDamage *= 0;
             }
         }
     }

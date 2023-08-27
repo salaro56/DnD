@@ -14,8 +14,8 @@ namespace DnD.Items.SpellComponents
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Sulfurous Compound");
-            Tooltip.SetDefault("A mixture of nitric acid and sulfur");
+            // DisplayName.SetDefault("Sulfurous Compound");
+            // Tooltip.SetDefault("A mixture of nitric acid and sulfur");
         }
 
         public override void SetDefaults()

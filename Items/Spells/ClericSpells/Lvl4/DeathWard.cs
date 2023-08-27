@@ -10,6 +10,7 @@ using Terraria.GameContent.Creative;
 using Microsoft.Xna.Framework;
 using Terraria.DataStructures;
 using Terraria.Localization;
+using DnD.Common;
 
 namespace DnD.Items.Spells.ClericSpells.Lvl4
 {
@@ -17,9 +18,9 @@ namespace DnD.Items.Spells.ClericSpells.Lvl4
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault(value: "[c/FF0000:Level 4:]" +
+            /* Tooltip.SetDefault(value: "[c/FF0000:Level 4:]" +
                 "\nYou touch a creature and grant it a measure of protection from death" +
-                "\nThe first time a target would drop to 0 hit points, the target insteads drops to 50hp");
+                "\nThe first time a target would drop to 0 hit points, the target insteads drops to 50hp"); */
 
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
@@ -92,8 +93,8 @@ namespace DnD.Items.Spells.ClericSpells.Lvl4
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<ClassToken>())
                 .AddIngredient(ItemID.SoulofLight, 5)
-                .AddCondition(NetworkText.FromLiteral("Must be of level 7 or higher"), r => Main.LocalPlayer.GetModPlayer<DnDPlayer>().playerLevel >= 7)
-                .AddCondition(NetworkText.FromLiteral("Must be of the Cleric Class"), r => Main.LocalPlayer.GetModPlayer<DnDPlayer>().clericClass == true)
+                .AddCondition(Conditions.IsRightLevel(7))
+                .AddCondition(Conditions.IsCleric)
                 .AddTile(ModContent.TileType<Furniture.MMTile>())
                 .Register();
         }
@@ -103,8 +104,8 @@ namespace DnD.Items.Spells.ClericSpells.Lvl4
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Death Ward");
-            Description.SetDefault("Your life is shielded with divine magic");
+            // DisplayName.SetDefault("Death Ward");
+            // Description.SetDefault("Your life is shielded with divine magic");
         }
 
         public override void Update(Player player, ref int buffIndex)

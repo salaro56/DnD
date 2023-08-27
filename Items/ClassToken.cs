@@ -15,8 +15,8 @@ namespace DnD.Items
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Class Token");
-            Tooltip.SetDefault("Used to purchase or craft spells for you class");
+            // DisplayName.SetDefault("Class Token");
+            // Tooltip.SetDefault("Used to purchase or craft spells for you class");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 10;
         }
 
