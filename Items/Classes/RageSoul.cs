@@ -15,7 +15,7 @@ using Terraria.ModLoader;
 
 namespace DnD.Items.Classes
 {
-    internal class RageSoul : ModItem
+    internal class RageSoul : ClassToken
     {
         public override void SetStaticDefaults()
         {

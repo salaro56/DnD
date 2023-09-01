@@ -10,7 +10,7 @@ using DnD.Common.Players;
 
 namespace DnD.Items.Classes
 {
-    internal class RangerQuiver : ModItem
+    internal class RangerQuiver : ClassToken
     {
         public override void SetStaticDefaults()
         {

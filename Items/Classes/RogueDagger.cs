@@ -13,7 +13,7 @@ using DnD.Common.Players;
 
 namespace DnD.Items.Classes
 {
-    internal class RogueDagger : ModItem
+    internal class RogueDagger : ClassToken
     {
 		public bool reliableTalent = false;
 

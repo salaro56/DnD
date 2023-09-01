@@ -74,27 +74,11 @@ namespace DnD.Common.Players
 
         public override bool DrawFunctionalSlot => Main.EquipPageSelected != 1 ? true : false;
 
-        public override bool CanAcceptItem(Item checkItem, AccessorySlotType context)
+        public override bool CanAcceptItem(Item item, AccessorySlotType context)
         {
             DnDPlayer pc = Main.LocalPlayer.GetModPlayer<DnDPlayer>();
 
-            if (checkItem.Name == "Rage Soul")
-            {
-                return true;
-            }
-            else if (checkItem.Name == "Holy Emblem")
-            {
-                return true;
-            }
-            else if (checkItem.Name == "Spellcasting Focus")
-            {
-                return true;
-            }
-            else if (checkItem.Name == "Rogue's Dagger")
-            {
-                return true;
-            }
-            else if (checkItem.Name == "Ranger's Quiver")
+            if (item.type == ModContent.ItemType<HolyEmblem>() || item.type == ModContent.ItemType<RageSoul>() || item.type == ModContent.ItemType<RangerQuiver>() || item.type == ModContent.ItemType<RogueDagger>() || item.type == ModContent.ItemType<SpellcastFocus>())
             {
                 return true;
             }
@@ -103,23 +87,7 @@ namespace DnD.Common.Players
 
         public override bool ModifyDefaultSwapSlot(Item item, int accSlotToSwapTo)
         {
-            if (item.Name == "Rage Soul")
-            {
-                return true;
-            }
-            else if (item.Name == "Holy Emblem")
-            {
-                return true;
-            }
-            else if (item.Name == "Spellcasting Focus")
-            {
-                return true;
-            }
-            else if (item.Name == "Rogue's Dagger")
-            {
-                return true;
-            }
-            else if (item.Name == "Ranger's Quiver")
+            if (item.type == ModContent.ItemType<HolyEmblem>() || item.type == ModContent.ItemType<RageSoul>() || item.type == ModContent.ItemType<RangerQuiver>() || item.type == ModContent.ItemType<RogueDagger>() || item.type == ModContent.ItemType<SpellcastFocus>())
             {
                 return true;
             }

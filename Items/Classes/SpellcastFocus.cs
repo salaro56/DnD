@@ -11,7 +11,7 @@ using Terraria.ModLoader;
 
 namespace DnD.Items.Classes
 {
-    internal class SpellcastFocus : ModItem
+    internal class SpellcastFocus : ClassToken
     {
         public override void SetStaticDefaults()
         {

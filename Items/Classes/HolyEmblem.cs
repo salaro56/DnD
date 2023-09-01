@@ -10,7 +10,7 @@ using DnD.Common.Players;
 
 namespace DnD.Items.Classes
 {
-    internal class HolyEmblem : ModItem
+    internal class HolyEmblem : ClassToken
     {
         public override void SetStaticDefaults()
         {
