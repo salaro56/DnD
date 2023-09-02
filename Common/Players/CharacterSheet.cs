@@ -6,16 +6,10 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
-using Microsoft.Xna.Framework;
 
-namespace DnD.Items.Weapons.Swords.Martial
+namespace DnD.Common.Players
 {
-    internal class Rapier : ModItem
-    {
-
-    }
-
-    internal class RapierSwing : ModProjectile
+    internal class CharacterSheet : ModPlayer
     {
 
     }
